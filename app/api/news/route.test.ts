@@ -1,7 +1,21 @@
 import { describe, it, expect, vi, beforeEach } from "vitest";
-import fs from "fs";
 
-// Mock the fetcher before importing the route
+// Mock fs to prevent tests from touching the real filesystem
+vi.mock("fs", () => ({
+  default: {
+    existsSync: vi.fn(() => false),
+    readFileSync: vi.fn(() => { throw new Error("no cache"); }),
+    writeFileSync: vi.fn(),
+    mkdirSync: vi.fn(),
+    unlinkSync: vi.fn(),
+  },
+  existsSync: vi.fn(() => false),
+  readFileSync: vi.fn(() => { throw new Error("no cache"); }),
+  writeFileSync: vi.fn(),
+  mkdirSync: vi.fn(),
+  unlinkSync: vi.fn(),
+}));
+
 vi.mock("@/lib/newsFetcher", () => ({
   fetchAllNews: vi.fn(),
 }));
@@ -16,12 +30,6 @@ import { GET } from "./route";
 import { fetchAllNews } from "@/lib/newsFetcher";
 import { NextRequest } from "next/server";
 
-const CACHE_PATH = (() => {
-  // Replicate the same path logic as route.ts
-  const path = require("path");
-  return path.join(process.cwd(), "data", "news-cache.json");
-})();
-
 function makeRequest(url: string): NextRequest {
   return new NextRequest(new URL(url, "http://localhost"));
 }
@@ -29,8 +37,6 @@ function makeRequest(url: string): NextRequest {
 describe("GET /api/news", () => {
   beforeEach(() => {
     vi.clearAllMocks();
-    // Clean up cache file between tests
-    try { fs.unlinkSync(CACHE_PATH); } catch {}
   });
 
   it("returns 500 when no cache and fetch fails", async () => {
@@ -111,7 +117,7 @@ describe("GET /api/news", () => {
     const body = await res.json();
 
     expect(res.status).toBe(200);
-    expect(body.data).toHaveLength(1); // invalid category → no filter
+    expect(body.data).toHaveLength(1);
   });
 
   it("returns data sorted by heatScore descending", async () => {

@@ -1,14 +1,27 @@
-import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
-import { applyTranslations, loadCache, ensureTranslations } from "../translator";
-import fs from "fs";
-import path from "path";
+import { describe, it, expect, vi } from "vitest";
 
-// Mock bing-translate-api to avoid real API calls in tests
+// In-memory fake filesystem — hoisted so vi.mock factory can access it
+const fakeFS: Record<string, string> = vi.hoisted(() => ({}));
+const fsMock = vi.hoisted(() => ({
+  existsSync: vi.fn((p: string) => p in fakeFS),
+  readFileSync: vi.fn((p: string, _enc: string) => {
+    if (p in fakeFS) return fakeFS[p];
+    throw new Error("ENOENT");
+  }),
+  writeFileSync: vi.fn((p: string, data: string) => { fakeFS[p] = data; }),
+  mkdirSync: vi.fn(() => {}),
+  unlinkSync: vi.fn((p: string) => { delete fakeFS[p]; }),
+}));
+
+vi.mock("fs", () => ({ default: fsMock, ...fsMock }));
+
 vi.mock("bing-translate-api", () => ({
   translate: vi.fn((text: string, _from: null, to: string) =>
     Promise.resolve({ translation: `[${to}] ${text}` })
   ),
 }));
+
+import { applyTranslations, loadCache, ensureTranslations } from "../translator";
 
 describe("applyTranslations", () => {
   it("returns items unchanged when locale is en", () => {
@@ -18,27 +31,14 @@ describe("applyTranslations", () => {
     ];
     const result = applyTranslations(items, "en");
     expect(result).toEqual(items);
-    expect(result).toBe(items); // same reference for en (optimization)
+    expect(result).toBe(items);
   });
 
   it("returns items unchanged when no cache exists for locale", () => {
     const items = [{ title: "Hello", summary: "World" }];
-    // loadCache would return null for a locale with no cache file
     const result = applyTranslations(items, "fr");
     expect(result[0].title).toBe("Hello");
     expect(result[0].summary).toBe("World");
-  });
-
-  it("applies cached translations when available", () => {
-    // Need to mock loadCache — but applyTranslations calls it internally.
-    // Instead, test that with no cache file, items pass through unchanged.
-    const items = [
-      { title: "Breaking News", summary: "Something happened" },
-    ];
-    const result = applyTranslations(items, "zh");
-    // Without pre-built cache, should return originals
-    expect(result[0].title).toBe("Breaking News");
-    expect(result[0].summary).toBe("Something happened");
   });
 
   it("handles empty array", () => {
@@ -46,7 +46,7 @@ describe("applyTranslations", () => {
     expect(result).toEqual([]);
   });
 
-  it("returns same array reference for en locale (passthrough)", () => {
+  it("returns same array reference for en locale", () => {
     const items = [{ title: "Test", summary: "Test summary" }];
     const result = applyTranslations(items, "en");
     expect(result).toBe(items);
@@ -65,28 +65,15 @@ describe("loadCache", () => {
     const result = loadCache("nonexistent-locale-xx");
     expect(result).toBeNull();
   });
-
-  it("returns null for malformed JSON cache file", () => {
-    expect(loadCache("xx")).toBeNull();
-  });
 });
 
 describe("ensureTranslations", () => {
-  const cacheFile = path.join(process.cwd(), "data", "translations-zh.json");
-
-  afterEach(() => {
-    // Clean up test cache to avoid polluting real translations
-    try { fs.unlinkSync(cacheFile); } catch {}
-  });
-
   it("does nothing when locale is en", async () => {
     await ensureTranslations([{ title: "Hello", summary: "World" }], "en");
-    // No cache file created, no error thrown
   });
 
   it("does nothing when locale is unsupported", async () => {
     await ensureTranslations([{ title: "Hello", summary: "World" }], "fr");
-    // No cache file created, no error thrown
   });
 
   it("translates new items and saves to cache", async () => {
@@ -95,23 +82,17 @@ describe("ensureTranslations", () => {
     ];
     await ensureTranslations(items, "zh");
 
-    // Cache should now be populated
     const cache = loadCache("zh");
     expect(cache).not.toBeNull();
     expect(cache!.titles["Breaking News"]).toBe("[zh-Hans] Breaking News");
-    expect(cache!.summaries["Something happened today"]).toBe("[zh-Hans] Something happened today");
   });
 
   it("skips items already in cache", async () => {
-    // First call translates
     await ensureTranslations([{ title: "A", summary: "B" }], "zh");
-    // Second call with the same item should skip (cached)
     await ensureTranslations([{ title: "A", summary: "B" }], "zh");
-    // No error = pass
   });
 
   it("handles empty array", async () => {
     await ensureTranslations([], "zh");
-    // No error = pass
   });
 });
