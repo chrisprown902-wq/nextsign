@@ -1,0 +1,31 @@
+{
+  "metadata": {
+    "title": "AI デイリートレンド",
+    "description": "AI最新ニュースを毎日配信"
+  },
+  "header": {
+    "title": "AI デイリートレンド",
+    "subtitle": "AI最新ニュースを毎日配信"
+  },
+  "categories": {
+    "trending": "トレンド",
+    "launches": "新着",
+    "research": "研究",
+    "business": "ビジネス"
+  },
+  "news": {
+    "readMore": "続きを読む",
+    "noSummary": "概要はありません",
+    "noNews": "このカテゴリにニュースはありません。"
+  },
+  "footer": {
+    "sources": "ソース：{count} 件のAIフィード",
+    "lastUpdated": "最終更新：{time}",
+    "demoMode": "デモモード - 静的データ（取得失敗、自動フォールバック）"
+  },
+  "loading": "読み込み中...",
+  "topThree": {
+    "heading": "トップ3トレンド",
+    "refresh": "更新"
+  }
+}

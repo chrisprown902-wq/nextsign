@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Daily Trends — Notion Design Demo</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* === Notion Design System Tokens === */
+:root {
+  --color-black: rgba(0,0,0,0.95);
+  --color-white: #ffffff;
+  --color-blue: #0075de;
+  --color-blue-hover: #005bab;
+  --color-blue-focus: #097fe8;
+  --color-warm-white: #f6f5f4;
+  --color-warm-dark: #31302e;
+  --color-warm-gray-500: #615d59;
+  --color-warm-gray-300: #a39e98;
+  --color-badge-bg: #f2f9ff;
+  --color-badge-text: #097fe8;
+  --color-deep-navy: #213183;
+  --color-teal: #2a9d99;
+  --color-green: #1aae39;
+  --color-orange: #dd5b00;
+  --color-pink: #ff64c8;
+  --color-purple: #391c57;
+  --border-whisper: 1px solid rgba(0,0,0,0.1);
+  --card-shadow: rgba(0,0,0,0.04) 0px 4px 18px, rgba(0,0,0,0.027) 0px 2.025px 7.84688px, rgba(0,0,0,0.02) 0px 0.8px 2.925px, rgba(0,0,0,0.01) 0px 0.175px 1.04062px;
+  --deep-shadow: rgba(0,0,0,0.01) 0px 1px 3px, rgba(0,0,0,0.02) 0px 3px 7px, rgba(0,0,0,0.02) 0px 7px 15px, rgba(0,0,0,0.04) 0px 14px 28px, rgba(0,0,0,0.05) 0px 23px 52px;
+  --radius-btn: 4px;
+  --radius-card: 12px;
+  --radius-hero-card: 16px;
+  --radius-pill: 9999px;
+  --font-sans: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: var(--font-sans);
+  background: var(--color-white);
+  color: var(--color-black);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* === Navigation === */
+.nav {
+  position: sticky; top: 0; z-index: 100;
+  background: var(--color-white);
+  padding: 0 24px;
+  border-bottom: var(--border-whisper);
+}
+.nav-inner {
+  max-width: 1200px; margin: 0 auto;
+  display: flex; align-items: center; justify-content: space-between;
+  height: 56px;
+}
+.nav-logo {
+  font-size: 15px; font-weight: 600; color: var(--color-black);
+  display: flex; align-items: center; gap: 8px;
+}
+.nav-logo-icon {
+  width: 24px; height: 24px; background: var(--color-black);
+  border-radius: var(--radius-btn);
+}
+.nav-links { display: flex; gap: 20px; align-items: center; }
+.nav-link {
+  font-size: 15px; font-weight: 600; color: var(--color-black);
+  text-decoration: none; transition: color 150ms ease;
+}
+.nav-link:hover { color: var(--color-blue); }
+.nav-cta {
+  display: inline-block; padding: 8px 16px;
+  background: var(--color-blue); color: var(--color-white);
+  font-size: 15px; font-weight: 600; line-height: 1.33;
+  border-radius: var(--radius-btn); text-decoration: none;
+  border: 1px solid transparent;
+  transition: background 150ms ease, transform 100ms ease;
+}
+.nav-cta:hover { background: var(--color-blue-hover); }
+.nav-cta:active { transform: scale(0.9); }
+.nav-cta:focus-visible { outline: 2px solid var(--color-blue-focus); outline-offset: 2px; box-shadow: var(--card-shadow); }
+
+/* === Hero === */
+.hero {
+  padding: 100px 24px 80px;
+  text-align: center; max-width: 900px; margin: 0 auto;
+}
+.hero-badge {
+  display: inline-block; padding: 4px 8px;
+  background: var(--color-badge-bg); color: var(--color-badge-text);
+  font-size: 12px; font-weight: 600; line-height: 1.33; letter-spacing: 0.125px;
+  border-radius: var(--radius-pill); margin-bottom: 24px;
+}
+.hero h1 {
+  font-size: 4rem; font-weight: 700; line-height: 1.00;
+  letter-spacing: -2.125px; color: var(--color-black); margin-bottom: 20px;
+}
+.hero p {
+  font-size: 1.25rem; font-weight: 600; line-height: 1.40;
+  letter-spacing: -0.125px; color: var(--color-warm-gray-500);
+  max-width: 600px; margin: 0 auto 32px;
+}
+.hero-actions { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+.hero-cta {
+  display: inline-block; padding: 8px 16px;
+  background: var(--color-blue); color: var(--color-white);
+  font-size: 15px; font-weight: 600; line-height: 1.33;
+  border-radius: var(--radius-btn); text-decoration: none;
+  border: 1px solid transparent;
+  transition: background 150ms ease, transform 100ms ease;
+}
+.hero-cta:hover { background: var(--color-blue-hover); }
+.hero-cta:active { transform: scale(0.9); }
+.hero-cta:focus-visible { outline: 2px solid var(--color-blue-focus); outline-offset: 2px; }
+.hero-ghost {
+  display: inline-block; padding: 8px 16px;
+  background: rgba(0,0,0,0.05); color: var(--color-black);
+  font-size: 15px; font-weight: 600; line-height: 1.33;
+  border-radius: var(--radius-btn); text-decoration: none;
+  transition: transform 100ms ease, color 150ms ease;
+}
+.hero-ghost:hover { transform: scale(1.05); color: var(--color-blue); }
+.hero-ghost:active { transform: scale(0.9); }
+
+/* === Category Pills === */
+.category-pills {
+  display: flex; gap: 8px; flex-wrap: wrap;
+  max-width: 1200px; margin: 0 auto 48px; padding: 0 24px;
+  justify-content: center;
+}
+.cat-pill {
+  display: inline-block; padding: 4px 8px;
+  font-size: 12px; font-weight: 600; line-height: 1.33; letter-spacing: 0.125px;
+  color: var(--color-badge-text); background: var(--color-badge-bg);
+  border-radius: var(--radius-pill); text-decoration: none;
+  transition: color 150ms ease, background 150ms ease;
+}
+.cat-pill:hover { background: #e2f0fc; }
+.cat-pill.active { background: var(--color-blue); color: var(--color-white); }
+
+/* === News Grid === */
+.news-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  max-width: 1200px; margin: 0 auto 64px; padding: 0 24px;
+}
+.news-card {
+  background: var(--color-white);
+  border: var(--border-whisper);
+  border-radius: var(--radius-card);
+  padding: 28px;
+  box-shadow: var(--card-shadow);
+  transition: box-shadow 200ms ease;
+}
+.news-card:hover { box-shadow: var(--deep-shadow); }
+.news-card-badge {
+  display: inline-block; padding: 4px 8px;
+  background: var(--color-badge-bg); color: var(--color-badge-text);
+  font-size: 12px; font-weight: 600; line-height: 1.33; letter-spacing: 0.125px;
+  border-radius: var(--radius-pill); margin-bottom: 16px;
+}
+.news-card h3 {
+  font-size: 1.38rem; font-weight: 700; line-height: 1.27;
+  letter-spacing: -0.25px; color: var(--color-black); margin-bottom: 10px;
+}
+.news-card p {
+  font-size: 1rem; font-weight: 400; line-height: 1.50;
+  color: var(--color-warm-gray-500); margin-bottom: 16px;
+}
+.news-card a {
+  color: var(--color-blue); text-decoration: none;
+  font-size: 15px; font-weight: 600;
+  transition: color 150ms ease;
+}
+.news-card a:hover { text-decoration: underline; color: var(--color-blue-hover); }
+
+/* === Warm White Alternating Section === */
+.alt-section {
+  background: var(--color-warm-white);
+  padding: 80px 24px; text-align: center;
+}
+.alt-section-inner { max-width: 1200px; margin: 0 auto; }
+.alt-section h2 {
+  font-size: 3rem; font-weight: 700; line-height: 1.00;
+  letter-spacing: -1.5px; color: var(--color-black); margin-bottom: 16px;
+}
+.alt-section p {
+  font-size: 1.25rem; font-weight: 600; line-height: 1.40;
+  letter-spacing: -0.125px; color: var(--color-warm-gray-500);
+  max-width: 650px; margin: 0 auto 40px;
+}
+.metric-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px;
+  max-width: 900px; margin: 0 auto;
+}
+.metric-card {
+  background: var(--color-white); border: var(--border-whisper);
+  border-radius: var(--radius-card); padding: 28px 20px;
+  box-shadow: var(--card-shadow);
+}
+.metric-card .metric-value {
+  font-size: 2.5rem; font-weight: 700; color: var(--color-black); margin-bottom: 4px;
+}
+.metric-card .metric-label {
+  font-size: 14px; font-weight: 400; color: var(--color-warm-gray-500);
+}
+
+/* === Footer === */
+.footer {
+  border-top: var(--border-whisper);
+  padding: 48px 24px 32px;
+  max-width: 1200px; margin: 0 auto;
+  text-align: center;
+}
+.footer-links { display: flex; gap: 24px; justify-content: center; flex-wrap: wrap; margin-bottom: 24px; }
+.footer-links a {
+  color: var(--color-warm-gray-500); text-decoration: none;
+  font-size: 15px; font-weight: 600;
+  transition: color 150ms ease;
+}
+.footer-links a:hover { color: var(--color-blue); }
+.footer p {
+  font-size: 14px; font-weight: 400; color: var(--color-warm-gray-300);
+}
+
+/* === Palette Swatches === */
+.palette-section { max-width: 1200px; margin: 0 auto 64px; padding: 0 24px; }
+.palette-section h2 {
+  font-size: 1.63rem; font-weight: 700; line-height: 1.23;
+  letter-spacing: -0.625px; color: var(--color-black);
+  margin-bottom: 20px; text-align: center;
+}
+.swatches { display: flex; gap: 12px; flex-wrap: wrap; justify-content: center; }
+.swatch {
+  width: 70px; height: 70px; border-radius: var(--radius-card);
+  border: var(--border-whisper);
+}
+.swatch-wrap { text-align: center; }
+.swatch-label { font-size: 10px; margin-top: 6px; color: var(--color-warm-gray-500); }
+
+/* === Responsive === */
+@media (max-width: 1080px) {
+  .news-grid { grid-template-columns: repeat(2, 1fr); }
+  .hero h1 { font-size: 3rem; letter-spacing: -1.5px; }
+}
+@media (max-width: 768px) {
+  .news-grid { grid-template-columns: 1fr; }
+  .hero { padding: 64px 24px 48px; }
+  .hero h1 { font-size: 2.5rem; letter-spacing: -1rem; }
+  .nav-links { display: none; }
+  .alt-section h2 { font-size: 2.25rem; }
+  .metric-grid { grid-template-columns: 1fr; }
+}
+@media (max-width: 400px) {
+  .hero h1 { font-size: 2rem; }
+}
+</style>
+</head>
+<body>
+
+<!-- Navigation -->
+<nav class="nav">
+  <div class="nav-inner">
+    <span class="nav-logo"><span class="nav-logo-icon"></span> AI Daily Trends</span>
+    <div class="nav-links">
+      <a href="#" class="nav-link">Product</a>
+      <a href="#" class="nav-link">Solutions</a>
+      <a href="#" class="nav-link">Resources</a>
+      <a href="#" class="nav-link">Pricing</a>
+      <a href="#" class="nav-cta">Get Notion free</a>
+    </div>
+  </div>
+</nav>
+
+<!-- Hero -->
+<section class="hero">
+  <span class="hero-badge">New</span>
+  <h1>AI Daily Trends</h1>
+  <p>The blank canvas for your AI knowledge. Clean, warm, and out of your way — like quality paper for the digital age.</p>
+  <div class="hero-actions">
+    <a href="#" class="hero-cta">Read Today's Edition</a>
+    <a href="#" class="hero-ghost">Browse Archive</a>
+  </div>
+</section>
+
+<!-- Category Pills -->
+<div class="category-pills">
+  <a href="#" class="cat-pill active">All</a>
+  <a href="#" class="cat-pill">LLMs</a>
+  <a href="#" class="cat-pill">Vision</a>
+  <a href="#" class="cat-pill">Robotics</a>
+  <a href="#" class="cat-pill">Policy</a>
+  <a href="#" class="cat-pill">Research</a>
+</div>
+
+<!-- News Cards -->
+<section class="news-grid">
+  <article class="news-card">
+    <span class="news-card-badge">LLM</span>
+    <h3>OpenAI Releases GPT-5</h3>
+    <p>OpenAI unveils GPT-5 with significant improvements in reasoning, multimodal capabilities, and agentic workflows. Early benchmarks show 30% gains over GPT-4.</p>
+    <a href="#">Read more &rarr;</a>
+  </article>
+  <article class="news-card">
+    <span class="news-card-badge">Research</span>
+    <h3>Google DeepMind Unveils Gemini</h3>
+    <p>DeepMind's Gemini 2.0 pushes the frontier on coding benchmarks, matching top competitive programmers while maintaining safety guardrails.</p>
+    <a href="#">Read more &rarr;</a>
+  </article>
+  <article class="news-card">
+    <span class="news-card-badge">Product</span>
+    <h3>Anthropic Claude Gets Web Search</h3>
+    <p>Claude now includes built-in web search with source attribution, bridging the gap between static knowledge and real-time information retrieval.</p>
+    <a href="#">Read more &rarr;</a>
+  </article>
+</section>
+
+<!-- Warm White Alternating Section -->
+<section class="alt-section">
+  <div class="alt-section-inner">
+    <h2>Why AI Daily Trends?</h2>
+    <p>Three stories. One email. Zero noise. Delivered every morning with the warmth and clarity of a well-edited newsletter.</p>
+    <div class="metric-grid">
+      <div class="metric-card">
+        <div class="metric-value">12,400</div>
+        <div class="metric-label">Subscribers</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-value">180</div>
+        <div class="metric-label">Editions published</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-value">97%</div>
+        <div class="metric-label">Reader satisfaction</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer">
+  <div class="footer-links">
+    <a href="#">About</a>
+    <a href="#">Archive</a>
+    <a href="#">Subscribe</a>
+    <a href="#">Contact</a>
+    <a href="#">RSS</a>
+  </div>
+  <p>&copy; 2026 AI Daily Trends. Built with the Notion design system.</p>
+</footer>
+
+<!-- Palette -->
+<section class="palette-section">
+  <h2>Color Palette</h2>
+  <div class="swatches">
+    <div class="swatch-wrap"><div class="swatch" style="background:rgba(0,0,0,0.95)"></div><div class="swatch-label">Notion Black<br>rgba(0,0,0,0.95)</div></div>
+    <div class="swatch-wrap"><div class="swatch" style="background:#ffffff"></div><div class="swatch-label">White<br>#ffffff</div></div>
+    <div class="swatch-wrap"><div class="swatch" style="background:#0075de"></div><div class="swatch-label">Notion Blue<br>#0075de</div></div>
+    <div class="swatch-wrap"><div class="swatch" style="background:#f6f5f4"></div><div class="swatch-label">Warm White<br>#f6f5f4</div></div>
+    <div class="swatch-wrap"><div class="swatch" style="background:#31302e"></div><div class="swatch-label">Warm Dark<br>#31302e</div></div>
+    <div class="swatch-wrap"><div class="swatch" style="background:#615d59"></div><div class="swatch-label">Gray 500<br>#615d59</div></div>
+    <div class="swatch-wrap"><div class="swatch" style="background:#a39e98"></div><div class="swatch-label">Gray 300<br>#a39e98</div></div>
+    <div class="swatch-wrap"><div class="swatch" style="background:#f2f9ff"></div><div class="swatch-label">Badge BG<br>#f2f9ff</div></div>
+    <div class="swatch-wrap"><div class="swatch" style="background:#097fe8"></div><div class="swatch-label">Focus Blue<br>#097fe8</div></div>
+    <div class="swatch-wrap"><div class="swatch" style="background:#213183"></div><div class="swatch-label">Deep Navy<br>#213183</div></div>
+    <div class="swatch-wrap"><div class="swatch" style="background:#1aae39"></div><div class="swatch-label">Green<br>#1aae39</div></div>
+    <div class="swatch-wrap"><div class="swatch" style="background:#dd5b00"></div><div class="swatch-label">Orange<br>#dd5b00</div></div>
+    <div class="swatch-wrap"><div class="swatch" style="background:#ff64c8"></div><div class="swatch-label">Pink<br>#ff64c8</div></div>
+    <div class="swatch-wrap"><div class="swatch" style="background:#391c57"></div><div class="swatch-label">Purple<br>#391c57</div></div>
+  </div>
+</section>
+
+</body>
+</html>

@@ -1,0 +1,6 @@
+node_modules/
+.next/
+data/news-cache.json
+data/translation-cache.json
+coverage/
+.env.local

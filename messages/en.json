@@ -1,0 +1,31 @@
+{
+  "metadata": {
+    "title": "AI Daily Trends",
+    "description": "Daily AI Trending News"
+  },
+  "header": {
+    "title": "AI Daily Trends",
+    "subtitle": "Daily AI Trending News"
+  },
+  "categories": {
+    "trending": "Trending",
+    "launches": "Launches",
+    "research": "Research",
+    "business": "Business"
+  },
+  "news": {
+    "readMore": "Read more",
+    "noSummary": "No summary available",
+    "noNews": "No news in this category."
+  },
+  "footer": {
+    "sources": "Sources: {count} AI feeds",
+    "lastUpdated": "Last updated: {time}",
+    "demoMode": "Demo mode - static data (fetch failed, auto-downgraded)"
+  },
+  "loading": "Loading...",
+  "topThree": {
+    "heading": "Top 3 Trending",
+    "refresh": "Refresh"
+  }
+}

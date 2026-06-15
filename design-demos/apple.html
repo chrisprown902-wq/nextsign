@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Daily Trends — Apple Design</title>
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  background: #f5f5f7;
+  color: #1d1d1f;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* --- Navigation --- */
+nav {
+  position: sticky; top: 0; z-index: 100;
+  height: 48px;
+  background: rgba(0,0,0,0.8);
+  backdrop-filter: saturate(180%) blur(20px);
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
+  display: flex; align-items: center; justify-content: center;
+}
+nav .nav-inner {
+  width: 100%; max-width: 980px;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 20px;
+}
+nav .logo {
+  font-size: 17px; font-weight: 600; color: #ffffff;
+  letter-spacing: -0.374px;
+}
+nav .nav-links {
+  display: flex; gap: 32px; list-style: none;
+}
+nav .nav-links a {
+  font-size: 12px; font-weight: 400; color: #ffffff;
+  text-decoration: none; letter-spacing: -0.12px;
+}
+nav .nav-links a:hover { text-decoration: underline; }
+@media (max-width: 640px) { nav .nav-links { display: none; } }
+
+/* --- Hero Section (dark) --- */
+.hero {
+  background: #000000; color: #ffffff;
+  text-align: center;
+  padding: 100px 20px 80px;
+}
+.hero h1 {
+  font-size: 3.50rem; font-weight: 600; line-height: 1.07;
+  letter-spacing: -0.28px; color: #ffffff;
+}
+.hero .subtitle {
+  font-size: 1.31rem; font-weight: 400; line-height: 1.19;
+  letter-spacing: 0.231px; color: #ffffff;
+  margin-top: 12px; opacity: 0.9;
+}
+.hero .cta-row {
+  margin-top: 28px; display: flex; gap: 16px; justify-content: center; flex-wrap: wrap;
+}
+.btn-blue {
+  display: inline-block; padding: 8px 15px;
+  background: #0071e3; color: #ffffff;
+  font-size: 17px; font-weight: 400; line-height: 2.41;
+  border-radius: 8px; border: 1px solid transparent;
+  text-decoration: none; cursor: pointer;
+}
+.btn-blue:hover { background: #1a7ff0; }
+.btn-blue:focus-visible { outline: 2px solid #0071e3; outline-offset: 2px; }
+.btn-pill {
+  display: inline-block; padding: 8px 22px;
+  background: transparent; color: #2997ff;
+  font-size: 14px; font-weight: 400; line-height: 1.43;
+  letter-spacing: -0.224px;
+  border-radius: 980px; border: 1px solid #2997ff;
+  text-decoration: none; cursor: pointer;
+}
+.btn-pill:hover { text-decoration: underline; }
+
+/* --- Category Pills (light section) --- */
+.section-light {
+  background: #f5f5f7; padding: 48px 20px; text-align: center;
+}
+.section-light h2 {
+  font-size: 2.50rem; font-weight: 600; line-height: 1.10;
+  color: #1d1d1f; margin-bottom: 24px;
+}
+.pills-row {
+  display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;
+  max-width: 980px; margin: 0 auto;
+}
+.pill-filter {
+  padding: 6px 14px;
+  background: #fafafc; color: rgba(0,0,0,0.8);
+  font-size: 14px; font-weight: 400; line-height: 1.29;
+  letter-spacing: -0.224px;
+  border-radius: 11px; border: 3px solid rgba(0,0,0,0.04);
+  cursor: pointer;
+}
+.pill-filter:focus-visible { outline: 2px solid #0071e3; outline-offset: 2px; }
+
+/* --- News Cards Grid --- */
+.section-dark {
+  background: #000000; padding: 60px 20px; text-align: center;
+}
+.section-dark h2 {
+  font-size: 2.50rem; font-weight: 600; line-height: 1.10;
+  color: #ffffff; margin-bottom: 36px;
+}
+.card-grid {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 24px; max-width: 980px; margin: 0 auto;
+}
+.card {
+  background: #272729; color: #ffffff;
+  border-radius: 8px; padding: 28px 24px; text-align: left;
+  box-shadow: rgba(0,0,0,0.22) 3px 5px 30px 0px;
+}
+.card .card-tag {
+  font-size: 12px; font-weight: 600; color: #2997ff;
+  letter-spacing: -0.12px; text-transform: uppercase; margin-bottom: 8px;
+}
+.card h3 {
+  font-size: 1.31rem; font-weight: 700; line-height: 1.19;
+  letter-spacing: 0.231px; margin-bottom: 8px;
+}
+.card p {
+  font-size: 14px; font-weight: 400; line-height: 1.29;
+  letter-spacing: -0.224px; color: rgba(255,255,255,0.7);
+  margin-bottom: 16px;
+}
+.card .card-link {
+  font-size: 14px; font-weight: 400; line-height: 1.43;
+  letter-spacing: -0.224px; color: #2997ff; text-decoration: none;
+}
+.card .card-link:hover { text-decoration: underline; }
+
+/* --- Footer --- */
+.section-footer {
+  background: #f5f5f7; padding: 40px 20px; text-align: center;
+}
+.section-footer .footer-text {
+  font-size: 12px; font-weight: 400; line-height: 1.33;
+  letter-spacing: -0.12px; color: rgba(0,0,0,0.48);
+}
+
+/* --- Color Swatches --- */
+.swatches {
+  padding: 40px 20px; text-align: center;
+}
+.swatches h2 {
+  font-size: 1.75rem; font-weight: 400; line-height: 1.14;
+  letter-spacing: 0.196px; color: #1d1d1f; margin-bottom: 20px;
+}
+.swatch-grid {
+  display: flex; gap: 12px; flex-wrap: wrap; justify-content: center;
+  max-width: 980px; margin: 0 auto;
+}
+.swatch {
+  width: 70px; height: 70px; border-radius: 5px;
+  display: flex; align-items: flex-end; justify-content: center;
+  padding-bottom: 6px;
+  font-size: 10px; font-weight: 400; line-height: 1.47;
+  letter-spacing: -0.08px;
+}
+.swatch-label { margin-top: 4px; font-size: 10px; color: rgba(0,0,0,0.48); }
+
+/* Responsive */
+@media (max-width: 640px) {
+  .hero h1 { font-size: 2.50rem; }
+  .card-grid { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <div class="logo">AI Trends</div>
+    <ul class="nav-links">
+      <li><a href="#">Today</a></li>
+      <li><a href="#">Models</a></li>
+      <li><a href="#">Research</a></li>
+      <li><a href="#">Products</a></li>
+      <li><a href="#">Policy</a></li>
+    </ul>
+    <div style="width:32px"></div>
+  </div>
+</nav>
+
+<section class="hero">
+  <h1>AI Daily Trends</h1>
+  <p class="subtitle">The latest breakthroughs in artificial intelligence, curated daily.</p>
+  <div class="cta-row">
+    <a href="#" class="btn-pill">Learn more &gt;</a>
+    <a href="#" class="btn-blue">Subscribe</a>
+  </div>
+</section>
+
+<section class="section-light">
+  <h2>Explore Categories</h2>
+  <div class="pills-row">
+    <button class="pill-filter">Large Language Models</button>
+    <button class="pill-filter">Computer Vision</button>
+    <button class="pill-filter">Robotics</button>
+    <button class="pill-filter">AI Safety</button>
+    <button class="pill-filter">Open Source</button>
+    <button class="pill-filter">Enterprise AI</button>
+  </div>
+</section>
+
+<section class="section-dark">
+  <h2>Latest Stories</h2>
+  <div class="card-grid">
+    <div class="card">
+      <div class="card-tag">Models</div>
+      <h3>OpenAI Releases GPT-5</h3>
+      <p>Next-generation reasoning capabilities with multimodal understanding across text, images, and code — setting new benchmarks in scientific research.</p>
+      <a href="#" class="card-link">Read more &gt;</a>
+    </div>
+    <div class="card">
+      <div class="card-tag">Research</div>
+      <h3>Google DeepMind Unveils Gemini</h3>
+      <p>A new era of unified AI that processes text, audio, video, and code natively — outperforming specialized systems across the board.</p>
+      <a href="#" class="card-link">Read more &gt;</a>
+    </div>
+    <div class="card">
+      <div class="card-tag">Products</div>
+      <h3>Anthropic Claude Gets Web Search</h3>
+      <p>Claude now browses the live web with inline citations, bringing verifiable real-time knowledge to every conversation.</p>
+      <a href="#" class="card-link">Read more &gt;</a>
+    </div>
+  </div>
+</section>
+
+<footer class="section-footer">
+  <p class="footer-text">Copyright &copy; 2026 AI Daily Trends. All rights reserved. Apple design language demo.</p>
+</footer>
+
+<section class="swatches">
+  <h2>Color Palette</h2>
+  <div class="swatch-grid">
+    <div>
+      <div class="swatch" style="background:#000000;color:#ffffff">#000</div>
+      <div class="swatch-label">Pure Black</div>
+    </div>
+    <div>
+      <div class="swatch" style="background:#f5f5f7;color:#1d1d1f">f5f5f7</div>
+      <div class="swatch-label">Light Gray</div>
+    </div>
+    <div>
+      <div class="swatch" style="background:#1d1d1f;color:#ffffff">#1d1d1f</div>
+      <div class="swatch-label">Near Black</div>
+    </div>
+    <div>
+      <div class="swatch" style="background:#0071e3;color:#ffffff">#0071e3</div>
+      <div class="swatch-label">Apple Blue</div>
+    </div>
+    <div>
+      <div class="swatch" style="background:#0066cc;color:#ffffff">#0066cc</div>
+      <div class="swatch-label">Link Blue</div>
+    </div>
+    <div>
+      <div class="swatch" style="background:#2997ff;color:#000000">#2997ff</div>
+      <div class="swatch-label">Bright Blue</div>
+    </div>
+    <div>
+      <div class="swatch" style="background:#272729;color:#ffffff">#272729</div>
+      <div class="swatch-label">Dark Surface</div>
+    </div>
+  </div>
+</section>
+
+</body>
+</html>

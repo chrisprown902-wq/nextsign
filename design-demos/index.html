@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>16 套设计模板演示</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: Inter, system-ui, -apple-system, sans-serif;
+    background: #f4f4f4;
+    color: #191c1f;
+    padding: 40px 20px;
+    min-height: 100vh;
+  }
+  h1 {
+    font-size: 48px;
+    font-weight: 600;
+    letter-spacing: -1px;
+    text-align: center;
+    margin-bottom: 8px;
+  }
+  .sub {
+    text-align: center;
+    color: #8d969e;
+    margin-bottom: 48px;
+    font-size: 16px;
+  }
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 16px;
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+  .card {
+    background: #ffffff;
+    border-radius: 16px;
+    padding: 24px;
+    text-decoration: none;
+    color: inherit;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+    border: 1px solid #e5e5e5;
+  }
+  .card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+  }
+  .card h2 {
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 6px;
+  }
+  .card .tags {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+    margin-top: 10px;
+  }
+  .card .tag {
+    font-size: 11px;
+    padding: 3px 10px;
+    border-radius: 999px;
+    background: #f4f4f4;
+    color: #505a63;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+</style>
+</head>
+<body>
+<h1>16 Design Templates</h1>
+<p class="sub">点击任意卡片打开该模板的独立演示页</p>
+
+<div class="grid">
+  <a href="apple.html" class="card">
+    <h2>#1 Apple</h2>
+    <p>极简 · 大留白 · 高端硬件感</p>
+    <div class="tags"><span class="tag">light</span><span class="tag">minimal</span><span class="tag">glass</span></div>
+  </a>
+  <a href="bmw.html" class="card">
+    <h2>#2 BMW</h2>
+    <p>豪华 · 力量感 · 深色调</p>
+    <div class="tags"><span class="tag">dark</span><span class="tag">luxury</span><span class="tag">sharp</span></div>
+  </a>
+  <a href="claude.html" class="card">
+    <h2>#3 Claude</h2>
+    <p>AI 产品 · 温暖 · 专业</p>
+    <div class="tags"><span class="tag">warm</span><span class="tag">ai</span><span class="tag">serif</span></div>
+  </a>
+  <a href="coinbase.html" class="card">
+    <h2>#4 Coinbase</h2>
+    <p>加密货币 · 信任感 · 蓝白色系</p>
+    <div class="tags"><span class="tag">blue</span><span class="tag">clean</span><span class="tag">pill</span></div>
+  </a>
+  <a href="cursor.html" class="card">
+    <h2>#5 Cursor</h2>
+    <p>AI 开发工具 · 暗色 · 极客</p>
+    <div class="tags"><span class="tag">warm-dark</span><span class="tag">dev-tool</span><span class="tag">orange</span></div>
+  </a>
+  <a href="figma.html" class="card">
+    <h2>#6 Figma</h2>
+    <p>设计工具 · 协作感 · 彩色</p>
+    <div class="tags"><span class="tag">colorful</span><span class="tag">dark</span><span class="tag">playful</span></div>
+  </a>
+  <a href="notion.html" class="card">
+    <h2>#7 Notion</h2>
+    <p>效率工具 · 简洁 · 卡片式</p>
+    <div class="tags"><span class="tag">warm-white</span><span class="tag">card</span><span class="tag">subtle</span></div>
+  </a>
+  <a href="nvidia.html" class="card">
+    <h2>#8 NVIDIA</h2>
+    <p>硬件/AI · 科技感 · 绿色</p>
+    <div class="tags"><span class="tag">black</span><span class="tag">green</span><span class="tag">bold</span></div>
+  </a>
+  <a href="ollama.html" class="card">
+    <h2>#9 Ollama</h2>
+    <p>本地 AI · 开源 · 低调</p>
+    <div class="tags"><span class="tag">grayscale</span><span class="tag">minimal</span><span class="tag">pill</span></div>
+  </a>
+  <a href="revolut.html" class="card">
+    <h2>#10 Revolut</h2>
+    <p>金融科技 · 现代 · 扁平淡影</p>
+    <div class="tags"><span class="tag">flat</span><span class="tag">black-white</span><span class="tag">pill</span></div>
+  </a>
+  <a href="spacex.html" class="card">
+    <h2>#11 SpaceX</h2>
+    <p>航天 · 未来感 · 暗色大图</p>
+    <div class="tags"><span class="tag">dark</span><span class="tag">cinematic</span><span class="tag">uppercase</span></div>
+  </a>
+  <a href="spotify.html" class="card">
+    <h2>#12 Spotify</h2>
+    <p>音乐流媒体 · 暗色 · 圆角</p>
+    <div class="tags"><span class="tag">dark</span><span class="tag">green</span><span class="tag">card-depth</span></div>
+  </a>
+  <a href="stripe.html" class="card">
+    <h2>#13 Stripe</h2>
+    <p>支付/SaaS · 渐变 · 精致阴影</p>
+    <div class="tags"><span class="tag">light</span><span class="tag">shadow</span><span class="tag">gradient</span></div>
+  </a>
+  <a href="uber.html" class="card">
+    <h2>#14 Uber</h2>
+    <p>出行 · 简洁 · 黑白为主</p>
+    <div class="tags"><span class="tag">black-white</span><span class="tag">bold</span><span class="tag">pill</span></div>
+  </a>
+  <a href="wise.html" class="card">
+    <h2>#15 Wise</h2>
+    <p>金融科技 · 清新 · 绿色</p>
+    <div class="tags"><span class="tag">green</span><span class="tag">warm</span><span class="tag">pill</span></div>
+  </a>
+  <a href="x.ai.html" class="card">
+    <h2>#16 xAI</h2>
+    <p>AI · 暗色 · 极简 · 锐边</p>
+    <div class="tags"><span class="tag">dark</span><span class="tag">brutalist</span><span class="tag">mono</span></div>
+  </a>
+</div>
+</body>
+</html>

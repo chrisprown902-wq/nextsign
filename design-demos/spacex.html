@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Daily Trends — SpaceX Design</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* ===== RESET ===== */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+/* ===== DESIGN TOKENS ===== */
+:root{
+  --space-black:#000000;
+  --spectral-white:#f0f0fa;
+  --ghost-surface:rgba(240,240,250,0.1);
+  --ghost-border:rgba(240,240,250,0.35);
+  --dark-overlay:rgba(0,0,0,0.5);
+  --font-din:'Inter',Arial,Verdana,sans-serif;
+  --radius-button:32px;
+}
+body{
+  font-family:var(--font-din);
+  font-weight:400;
+  font-size:16px;
+  line-height:1.5;
+  color:var(--spectral-white);
+  background:var(--space-black);
+  -webkit-font-smoothing:antialiased;
+  text-transform:uppercase;
+}
+/* ===== NAV ===== */
+nav{
+  position:fixed;
+  top:0;
+  left:0;
+  right:0;
+  z-index:10;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:20px 48px;
+  background:transparent;
+}
+.nav-logo{
+  font-size:13px;
+  font-weight:700;
+  letter-spacing:1.17px;
+  color:var(--spectral-white);
+}
+.nav-links{
+  display:flex;
+  align-items:center;
+  gap:32px;
+  list-style:none;
+}
+.nav-links a{
+  text-decoration:none;
+  color:var(--spectral-white);
+  font-size:12px;
+  font-weight:400;
+  letter-spacing:normal;
+  line-height:2.0;
+}
+.nav-links a.nav-bold{
+  font-size:13px;
+  font-weight:700;
+  letter-spacing:1.17px;
+  line-height:0.94;
+}
+.nav-links a:hover{color:var(--spectral-white);opacity:0.8}
+/* ===== VIEWPORT SECTIONS ===== */
+.viewport-section{
+  position:relative;
+  width:100%;
+  height:100vh;
+  display:flex;
+  align-items:center;
+  overflow:hidden;
+}
+.viewport-overlay{
+  position:absolute;
+  inset:0;
+  background:var(--dark-overlay);
+  z-index:1;
+}
+.viewport-section.hero-section{
+  background: radial-gradient(ellipse at 30% 50%, #1a1a2e 0%, #0d0d1a 40%, #000000 100%);
+}
+.viewport-section.hero-section::before{
+  content:'';
+  position:absolute;
+  top:10%;
+  left:5%;
+  width:40%;
+  height:40%;
+  background:radial-gradient(circle at center,rgba(240,240,250,0.08) 0%,transparent 70%);
+  border-radius:50%;
+  z-index:0;
+}
+.viewport-section.hero-section::after{
+  content:'';
+  position:absolute;
+  bottom:15%;
+  right:10%;
+  width:30%;
+  height:30%;
+  background:radial-gradient(circle at center,rgba(240,240,250,0.05) 0%,transparent 70%);
+  border-radius:50%;
+  z-index:0;
+}
+.viewport-content{
+  position:relative;
+  z-index:2;
+  max-width:1280px;
+  margin:0 auto;
+  padding:0 48px;
+  width:100%;
+}
+.viewport-content.hero-content{
+  text-align:left;
+  max-width:700px;
+  margin:0;
+  margin-left:max(48px,8vw);
+  padding-top:60px;
+}
+.hero-micro{
+  font-size:10px;
+  font-weight:400;
+  letter-spacing:1px;
+  line-height:0.94;
+  color:var(--spectral-white);
+  opacity:0.7;
+  margin-bottom:24px;
+}
+.hero-content h1{
+  font-size:48px;
+  font-weight:700;
+  line-height:1.0;
+  letter-spacing:0.96px;
+  color:var(--spectral-white);
+  margin-bottom:24px;
+}
+.hero-content p{
+  font-size:16px;
+  font-weight:400;
+  line-height:1.7;
+  letter-spacing:normal;
+  color:var(--spectral-white);
+  opacity:0.8;
+  margin-bottom:36px;
+  max-width:520px;
+}
+.btn-ghost{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  padding:18px 36px;
+  border-radius:var(--radius-button);
+  background:var(--ghost-surface);
+  color:var(--spectral-white);
+  border:1px solid var(--ghost-border);
+  font-size:13px;
+  font-weight:700;
+  letter-spacing:1.17px;
+  line-height:0.94;
+  font-family:var(--font-din);
+  cursor:pointer;
+  text-decoration:none;
+  text-transform:uppercase;
+  transition:background 0.2s;
+}
+.btn-ghost:hover{background:rgba(240,240,250,0.2)}
+/* ===== CARDS SECTION ===== */
+.viewport-section.cards-section{
+  background: radial-gradient(ellipse at 70% 40%, #0f0f23 0%, #050510 50%, #000000 100%);
+}
+.viewport-section.cards-section::before{
+  content:'';
+  position:absolute;
+  top:0;
+  left:0;
+  right:0;
+  bottom:0;
+  background:
+    radial-gradient(circle at 80% 20%,rgba(240,240,250,0.04) 0%,transparent 50%),
+    radial-gradient(circle at 20% 80%,rgba(240,240,250,0.03) 0%,transparent 50%);
+  z-index:0;
+}
+.cards-content{
+  padding-top:80px;
+}
+.cards-label{
+  font-size:10px;
+  font-weight:400;
+  letter-spacing:1px;
+  line-height:0.94;
+  color:var(--spectral-white);
+  opacity:0.6;
+  margin-bottom:16px;
+}
+.cards-content h2{
+  font-size:48px;
+  font-weight:700;
+  line-height:1.0;
+  letter-spacing:0.96px;
+  color:var(--spectral-white);
+  margin-bottom:40px;
+}
+/* ===== SpaceX-style "cards" — text on dark panels, no actual cards ===== */
+.text-panels{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:48px;
+}
+.text-panel{
+  position:relative;
+}
+.text-panel-number{
+  font-size:10px;
+  font-weight:400;
+  letter-spacing:1px;
+  line-height:0.94;
+  color:var(--spectral-white);
+  opacity:0.4;
+  margin-bottom:12px;
+}
+.text-panel h3{
+  font-size:24px;
+  font-weight:700;
+  letter-spacing:0.96px;
+  line-height:1.1;
+  color:var(--spectral-white);
+  margin-bottom:12px;
+}
+.text-panel p{
+  font-size:13px;
+  font-weight:400;
+  letter-spacing:normal;
+  line-height:1.7;
+  color:var(--spectral-white);
+  opacity:0.6;
+  margin-bottom:16px;
+}
+.text-panel-divider{
+  width:32px;
+  height:2px;
+  background:var(--ghost-border);
+  margin-bottom:16px;
+}
+.text-panel-meta{
+  font-size:10px;
+  font-weight:400;
+  letter-spacing:1px;
+  line-height:0.94;
+  color:var(--spectral-white);
+  opacity:0.4;
+}
+/* ===== CATEGORY STRIP ===== */
+.category-strip{
+  display:flex;
+  gap:24px;
+  margin-bottom:48px;
+  flex-wrap:wrap;
+}
+.category-item{
+  font-size:12px;
+  font-weight:400;
+  letter-spacing:normal;
+  line-height:2.0;
+  color:var(--spectral-white);
+  opacity:0.5;
+  cursor:pointer;
+  padding-bottom:4px;
+  border-bottom:2px solid transparent;
+  transition:all 0.15s;
+  text-decoration:none;
+}
+.category-item.active{
+  opacity:1;
+  font-weight:700;
+  letter-spacing:1.17px;
+  font-size:13px;
+  line-height:0.94;
+  border-bottom-color:var(--spectral-white);
+}
+.category-item:hover{opacity:0.8}
+/* ===== FOOTER ===== */
+.viewport-section.footer-section{
+  height:auto;
+  min-height:50vh;
+  background:var(--space-black);
+  border-top:1px solid rgba(240,240,250,0.1);
+}
+.footer-content{
+  padding:80px 0;
+}
+.footer-grid{
+  display:grid;
+  grid-template-columns:2fr 1fr 1fr 1fr;
+  gap:40px;
+  margin-bottom:48px;
+}
+.footer-brand{
+  font-size:13px;
+  font-weight:700;
+  letter-spacing:1.17px;
+  line-height:0.94;
+  color:var(--spectral-white);
+  margin-bottom:12px;
+}
+.footer-brand+p{
+  font-size:12px;
+  font-weight:400;
+  letter-spacing:normal;
+  color:var(--spectral-white);
+  opacity:0.5;
+  line-height:2.0;
+}
+.footer-col-title{
+  font-size:13px;
+  font-weight:700;
+  letter-spacing:1.17px;
+  line-height:0.94;
+  color:var(--spectral-white);
+  margin-bottom:16px;
+}
+.footer-col a{
+  display:block;
+  font-size:12px;
+  font-weight:400;
+  letter-spacing:normal;
+  color:var(--spectral-white);
+  opacity:0.5;
+  line-height:2.0;
+  text-decoration:none;
+  margin-bottom:8px;
+}
+.footer-col a:hover{opacity:0.8}
+.footer-bottom{
+  font-size:10px;
+  font-weight:400;
+  letter-spacing:1px;
+  line-height:0.94;
+  color:var(--spectral-white);
+  opacity:0.3;
+  padding-top:32px;
+  border-top:1px solid rgba(240,240,250,0.08);
+}
+/* ===== SWATCHES SECTION ===== */
+.swatches-section{
+  max-width:1280px;
+  margin:0 auto;
+  padding:0 48px 80px;
+}
+.swatches-section h3{
+  font-size:24px;
+  font-weight:700;
+  letter-spacing:0.96px;
+  color:var(--spectral-white);
+  margin-bottom:8px;
+}
+.swatches-section .swatch-subtitle{
+  font-size:12px;
+  font-weight:400;
+  color:var(--spectral-white);
+  opacity:0.5;
+  letter-spacing:normal;
+  margin-bottom:32px;
+}
+.swatches{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(200px,1fr));
+  gap:16px;
+}
+.swatch{
+  border:1px solid rgba(240,240,250,0.15);
+  border-radius:4px;
+  overflow:hidden;
+}
+.swatch-color{height:60px}
+.swatch-label{
+  padding:12px 16px;
+  background:rgba(240,240,250,0.05);
+}
+.swatch-label .name{
+  font-size:12px;
+  font-weight:700;
+  letter-spacing:1.17px;
+  color:var(--spectral-white);
+}
+.swatch-label .hex{
+  font-size:10px;
+  font-weight:400;
+  letter-spacing:1px;
+  color:var(--spectral-white);
+  opacity:0.5;
+  font-family:monospace;
+  margin-top:4px;
+}
+/* ===== RESPONSIVE ===== */
+@media(max-width:960px){
+  .text-panels{grid-template-columns:1fr;gap:32px}
+  .footer-grid{grid-template-columns:1fr 1fr}
+  .nav-links{display:none}
+}
+@media(max-width:600px){
+  .hero-content h1,.cards-content h2{font-size:32px;letter-spacing:0.64px}
+  .viewport-content{margin-left:0}
+  .hero-content,.cards-content{padding-top:40px}
+  .text-panels{grid-template-columns:1fr}
+  .footer-grid{grid-template-columns:1fr}
+  nav{padding:16px 24px}
+  .viewport-content{padding:0 24px}
+  .swatches{grid-template-columns:repeat(2,1fr)}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">AI DAILY</div>
+  <ul class="nav-links">
+    <li><a href="#" class="nav-bold">MISSIONS</a></li>
+    <li><a href="#">LAUNCHES</a></li>
+    <li><a href="#">UPDATES</a></li>
+    <li><a href="#">CAREERS</a></li>
+    <li><a href="#">SHOP</a></li>
+  </ul>
+  <a href="#" class="btn-ghost" style="padding:10px 24px;font-size:10px;">SIGN IN</a>
+</nav>
+
+<!-- HERO VIEWPORT -->
+<section class="viewport-section hero-section">
+  <div class="viewport-overlay"></div>
+  <div class="viewport-content hero-content">
+    <div class="hero-micro">TRANSMISSION 001 &middot; JUNE 2026</div>
+    <h1>AI DAILY<br>TRENDS</h1>
+    <p>REAL-TIME INTELLIGENCE FROM THE FRONTIER OF ARTIFICIAL INTELLIGENCE. MISSION-CRITICAL UPDATES, CURATED DAILY.</p>
+    <a href="#" class="btn-ghost">LEARN MORE</a>
+  </div>
+</section>
+
+<!-- CARDS VIEWPORT -->
+<section class="viewport-section cards-section">
+  <div class="viewport-overlay"></div>
+  <div class="viewport-content cards-content">
+    <div class="cards-label">LATEST TRANSMISSIONS</div>
+    <h2>MISSION<br>BRIEFING</h2>
+    <div class="category-strip">
+      <span class="category-item active">ALL MISSIONS</span>
+      <span class="category-item">LLM SYSTEMS</span>
+      <span class="category-item">ROBOTICS</span>
+      <span class="category-item">RESEARCH</span>
+      <span class="category-item">POLICY</span>
+    </div>
+    <div class="text-panels">
+      <!-- Panel 1 -->
+      <div class="text-panel">
+        <div class="text-panel-number">MISSION 01</div>
+        <h3>OPENAI RELEASES GPT-5</h3>
+        <div class="text-panel-divider"></div>
+        <p>NEXT-GENERATION LANGUAGE MODEL WITH IMPROVED REASONING, MULTIMODAL CAPABILITIES, AND A 2M TOKEN CONTEXT WINDOW.</p>
+        <div class="text-panel-meta">JUNE 1, 2026 &middot; TRANSMISSION COMPLETE</div>
+      </div>
+      <!-- Panel 2 -->
+      <div class="text-panel">
+        <div class="text-panel-number">MISSION 02</div>
+        <h3>GOOGLE DEEPMIND UNVEILS GEMINI</h3>
+        <div class="text-panel-divider"></div>
+        <p>GEMINI 3.0 ACHIEVES STATE-OF-THE-ART ON MMLU, CODING BENCHMARKS, AND MULTIMODAL UNDERSTANDING TASKS.</p>
+        <div class="text-panel-meta">MAY 31, 2026 &middot; DATA ACQUIRED</div>
+      </div>
+      <!-- Panel 3 -->
+      <div class="text-panel">
+        <div class="text-panel-number">MISSION 03</div>
+        <h3>ANTHROPIC CLAUDE GETS WEB SEARCH</h3>
+        <div class="text-panel-divider"></div>
+        <p>CLAUDE NOW INCLUDES BUILT-IN WEB SEARCH WITH SOURCE ATTRIBUTION, CLOSING A KEY FEATURE GAP IN THE ASSISTANT MARKET.</p>
+        <div class="text-panel-meta">MAY 30, 2026 &middot; STATUS: ACTIVE</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER VIEWPORT -->
+<section class="viewport-section footer-section">
+  <div class="viewport-content footer-content">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-brand">AI DAILY TRENDS</div>
+        <p>MISSION-CRITICAL AI INTELLIGENCE.<br>TRANSMITTING DAILY SINCE 2024.</p>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-title">MISSIONS</div>
+        <a href="#">LLM SYSTEMS</a>
+        <a href="#">ROBOTICS</a>
+        <a href="#">RESEARCH</a>
+        <a href="#">POLICY</a>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-title">COMPANY</div>
+        <a href="#">ABOUT</a>
+        <a href="#">CAREERS</a>
+        <a href="#">CONTACT</a>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-title">UPDATES</div>
+        <a href="#">NEWSLETTER</a>
+        <a href="#">RSS FEED</a>
+        <a href="#">API</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      &copy; 2026 AI DAILY TRENDS. ALL TRANSMISSIONS CLASSIFIED FOR PUBLIC DISTRIBUTION.
+    </div>
+  </div>
+</section>
+
+<!-- SWATCHES -->
+<section class="viewport-section" style="height:auto;min-height:auto;background:#000000;border-top:1px solid rgba(240,240,250,0.1);">
+  <div class="viewport-content swatches-section" style="padding-top:60px;">
+    <h3>COLOR PALETTE</h3>
+    <p class="swatch-subtitle">SPACEX DESIGN SYSTEM &middot; ACHROMATIC + SPECTRAL</p>
+    <div class="swatches">
+      <div class="swatch"><div class="swatch-color" style="background:#000000"></div><div class="swatch-label"><div class="name">SPACE BLACK</div><div class="hex">#000000</div></div></div>
+      <div class="swatch"><div class="swatch-color" style="background:#f0f0fa"></div><div class="swatch-label"><div class="name">SPECTRAL WHITE</div><div class="hex" style="color:#000">#f0f0fa</div></div></div>
+      <div class="swatch"><div class="swatch-color" style="background:rgba(240,240,250,0.1)"></div><div class="swatch-label"><div class="name">GHOST SURFACE</div><div class="hex">rgba(240,240,250,0.1)</div></div></div>
+      <div class="swatch"><div class="swatch-color" style="background:rgba(240,240,250,0.35)"></div><div class="swatch-label"><div class="name">GHOST BORDER</div><div class="hex">rgba(240,240,250,0.35)</div></div></div>
+      <div class="swatch"><div class="swatch-color" style="background:rgba(0,0,0,0.5)"></div><div class="swatch-label"><div class="name">DARK OVERLAY</div><div class="hex">rgba(0,0,0,0.5)</div></div></div>
+    </div>
+  </div>
+</section>
+
+</body>
+</html>

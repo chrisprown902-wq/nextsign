@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Daily Trends — Coinbase Design</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'DM Sans', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  background: #ffffff;
+  color: #0a0b0d;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* --- Navigation --- */
+nav {
+  background: #ffffff; border-bottom: 1px solid rgba(91,97,110,0.2);
+  display: flex; align-items: center; justify-content: center;
+  padding: 0 24px; height: 64px;
+}
+nav .nav-inner {
+  width: 100%; max-width: 1200px;
+  display: flex; align-items: center; justify-content: space-between;
+}
+nav .logo {
+  font-size: 20px; font-weight: 600; color: #0a0b0d;
+}
+nav .nav-links {
+  display: flex; gap: 32px; list-style: none;
+}
+nav .nav-links a {
+  font-size: 16px; font-weight: 600; line-height: 1.25;
+  color: #0a0b0d; text-decoration: none;
+}
+nav .nav-links a:hover { color: #0052ff; }
+nav .nav-cta {
+  display: inline-block; padding: 10px 28px;
+  font-size: 16px; font-weight: 600; line-height: 1.20;
+  color: #ffffff; text-decoration: none;
+  background: #0052ff; border-radius: 56px;
+}
+nav .nav-cta:hover { background: #578bfa; }
+@media (max-width: 768px) {
+  nav .nav-links { display: none; }
+}
+
+/* --- Hero Section --- */
+.hero {
+  background: #ffffff; text-align: center;
+  padding: 90px 20px 70px;
+}
+.hero h1 {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 5rem; font-weight: 400; line-height: 1.00; color: #0a0b0d;
+}
+.hero .subtitle {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 18px; font-weight: 400; line-height: 1.56;
+  color: #5b616e; max-width: 560px; margin: 20px auto 0;
+}
+.hero .cta-row {
+  margin-top: 36px; display: flex; gap: 14px; justify-content: center; flex-wrap: wrap;
+}
+.btn-pill {
+  display: inline-block; padding: 14px 36px;
+  font-family: 'DM Sans', sans-serif; font-size: 16px; font-weight: 600;
+  line-height: 1.20; letter-spacing: 0.16px;
+  text-decoration: none; border-radius: 56px;
+  border: 1px solid transparent; cursor: pointer;
+}
+.btn-pill-primary {
+  background: #eef0f3; color: #0a0b0d;
+}
+.btn-pill-primary:hover { background: #578bfa; color: #ffffff; }
+.btn-pill-blue {
+  background: transparent; color: #0052ff;
+  border: 1px solid #0052ff;
+}
+.btn-pill-blue:hover { background: #0052ff; color: #ffffff; }
+.btn-pill:focus-visible { outline: 2px solid #0a0b0d; outline-offset: 2px; }
+
+/* --- Category Pills --- */
+.section-gray {
+  background: #f8f9fb; padding: 52px 20px; text-align: center;
+}
+.section-gray h2 {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 2.25rem; font-weight: 400; line-height: 1.11; color: #0a0b0d;
+  margin-bottom: 28px;
+}
+.pills-row {
+  display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;
+  max-width: 1100px; margin: 0 auto;
+}
+.pill-filter {
+  padding: 10px 22px;
+  font-family: 'DM Sans', sans-serif; font-size: 14px; font-weight: 600;
+  line-height: 1.20; color: #0a0b0d;
+  background: #ffffff; border: 1px solid rgba(91,97,110,0.2); border-radius: 40px;
+  cursor: pointer;
+}
+.pill-filter:hover { border-color: #0052ff; color: #0052ff; }
+.pill-filter:focus-visible { outline: 2px solid #0a0b0d; outline-offset: 2px; }
+
+/* --- Dark Section + Cards --- */
+.section-dark {
+  background: #0a0b0d; padding: 72px 20px; text-align: center;
+}
+.section-dark h2 {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 2.50rem; font-weight: 400; line-height: 1.00; color: #ffffff;
+  margin-bottom: 40px;
+}
+.card-grid {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+  gap: 24px; max-width: 1100px; margin: 0 auto;
+}
+.card {
+  background: #282b31; color: #ffffff;
+  border: 1px solid rgba(91,97,110,0.2); border-radius: 16px;
+  padding: 28px 24px; text-align: left;
+}
+.card .card-tag {
+  display: inline-block;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 13px; font-weight: 600; line-height: 1.23;
+  color: #0052ff; background: rgba(0,82,255,0.10);
+  padding: 4px 12px; border-radius: 4px; margin-bottom: 14px;
+}
+.card h3 {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 1.75rem; font-weight: 400; line-height: 1.13; color: #ffffff;
+  margin-bottom: 12px;
+}
+.card p {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 16px; font-weight: 400; line-height: 1.50; color: rgba(255,255,255,0.65);
+  margin-bottom: 20px;
+}
+.card .card-link {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 16px; font-weight: 600; line-height: 1.25;
+  color: #0052ff; text-decoration: none;
+}
+.card .card-link:hover { color: #578bfa; }
+
+/* --- Footer --- */
+.section-footer {
+  background: #0a0b0d; padding: 40px 20px; text-align: center;
+  border-top: 1px solid #282b31;
+}
+.section-footer .footer-text {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px; font-weight: 600; line-height: 1.50; color: #5b616e;
+}
+
+/* --- Color Swatches --- */
+.swatches {
+  padding: 48px 20px; text-align: center;
+  background: #ffffff; border-top: 1px solid rgba(91,97,110,0.2);
+}
+.swatches h2 {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 2rem; font-weight: 400; line-height: 1.13; color: #0a0b0d;
+  margin-bottom: 24px;
+}
+.swatch-grid {
+  display: flex; gap: 12px; flex-wrap: wrap; justify-content: center;
+  max-width: 1100px; margin: 0 auto;
+}
+.swatch {
+  width: 68px; height: 68px; border-radius: 12px;
+  display: flex; align-items: flex-end; justify-content: center;
+  padding-bottom: 6px;
+  font-family: 'DM Sans', sans-serif; font-size: 10px; font-weight: 600;
+}
+.swatch-label { margin-top: 4px; font-size: 11px; color: #5b616e; }
+
+/* Responsive */
+@media (max-width: 768px) {
+  .hero h1 { font-size: 3rem; }
+  .card-grid { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <div class="logo">AI Trends</div>
+    <ul class="nav-links">
+      <li><a href="#">Today</a></li>
+      <li><a href="#">Models</a></li>
+      <li><a href="#">Research</a></li>
+      <li><a href="#">Products</a></li>
+      <li><a href="#">Policy</a></li>
+    </ul>
+    <a href="#" class="nav-cta">Subscribe</a>
+  </div>
+</nav>
+
+<section class="hero">
+  <h1>AI Daily Trends</h1>
+  <p class="subtitle">The most trusted source for artificial intelligence news, curated by experts.</p>
+  <div class="cta-row">
+    <a href="#" class="btn-pill btn-pill-primary">Get started</a>
+    <a href="#" class="btn-pill btn-pill-blue">Learn more</a>
+  </div>
+</section>
+
+<section class="section-gray">
+  <h2>Explore Categories</h2>
+  <div class="pills-row">
+    <button class="pill-filter">Large Language Models</button>
+    <button class="pill-filter">Computer Vision</button>
+    <button class="pill-filter">Robotics</button>
+    <button class="pill-filter">AI Safety</button>
+    <button class="pill-filter">Open Source</button>
+    <button class="pill-filter">Enterprise AI</button>
+  </div>
+</section>
+
+<section class="section-dark">
+  <h2>Latest Stories</h2>
+  <div class="card-grid">
+    <div class="card">
+      <span class="card-tag">Models</span>
+      <h3>OpenAI Releases GPT-5</h3>
+      <p>Next-generation reasoning with multimodal understanding across text, images, and code.</p>
+      <a href="#" class="card-link">Read more &rarr;</a>
+    </div>
+    <div class="card">
+      <span class="card-tag">Research</span>
+      <h3>Google DeepMind Unveils Gemini</h3>
+      <p>A unified AI system that processes text, audio, video, and code natively.</p>
+      <a href="#" class="card-link">Read more &rarr;</a>
+    </div>
+    <div class="card">
+      <span class="card-tag">Products</span>
+      <h3>Anthropic Claude Gets Web Search</h3>
+      <p>Claude now browses the live web with inline citations for verifiable knowledge.</p>
+      <a href="#" class="card-link">Read more &rarr;</a>
+    </div>
+  </div>
+</section>
+
+<footer class="section-footer">
+  <p class="footer-text">Copyright &copy; 2026 AI Daily Trends. Coinbase design language demo.</p>
+</footer>
+
+<section class="swatches">
+  <h2>Color Palette</h2>
+  <div class="swatch-grid">
+    <div>
+      <div class="swatch" style="background:#ffffff;color:#0a0b0d;border:1px solid rgba(91,97,110,0.2);">#fff</div>
+      <div class="swatch-label">White</div>
+    </div>
+    <div>
+      <div class="swatch" style="background:#0a0b0d;color:#ffffff;">#0a0b0d</div>
+      <div class="swatch-label">Near Black</div>
+    </div>
+    <div>
+      <div class="swatch" style="background:#0052ff;color:#ffffff;">#0052ff</div>
+      <div class="swatch-label">Coinbase Blue</div>
+    </div>
+    <div>
+      <div class="swatch" style="background:#578bfa;color:#ffffff;">#578bfa</div>
+      <div class="swatch-label">Hover Blue</div>
+    </div>
+    <div>
+      <div class="swatch" style="background:#eef0f3;color:#0a0b0d;">eef0f3</div>
+      <div class="swatch-label">Cool Gray</div>
+    </div>
+    <div>
+      <div class="swatch" style="background:#282b31;color:#ffffff;">#282b31</div>
+      <div class="swatch-label">Dark Card</div>
+    </div>
+    <div>
+      <div class="swatch" style="background:#5b616e;color:#ffffff;">#5b616e</div>
+      <div class="swatch-label">Muted Blue</div>
+    </div>
+  </div>
+</section>
+
+</body>
+</html>

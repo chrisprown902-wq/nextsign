@@ -1,0 +1,25 @@
+name: CI
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+    branches: [main, master]
+  workflow_dispatch:
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install deps
+        run: pip install pyyaml
+      - name: Security scan (all tracks)
+        run: python git-release-scan.py --dir .
+      - name: Project check
+        run: python project-check.py --dir .
+        if: hashFiles('**/*.py', '**/*.js', '**/*.ts', '**/*.go', '**/*.rs', '**/Cargo.toml') != ''

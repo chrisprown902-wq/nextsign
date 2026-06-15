@@ -1,0 +1,121 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ── Claude × Wise Green Design Tokens ── */
+:root {
+  --color-canvas: #f5f4ed;
+  --color-ink: #141413;
+  --color-accent: #9fe870;
+  --color-accent-text: #163300;
+  --color-mint: #b8e994;
+  --color-pastel: #8de07a;
+  --color-dark-green: #163300;
+  --color-secondary: #5e5d59;
+  --color-tertiary: #87867f;
+  --color-border: #f0eee6;
+  --color-dark-surface: #30302e;
+  --color-deep-dark: #141413;
+  --shadow-ring: 0 0 0 1px rgba(0, 0, 0, 0.06);
+  --shadow-whisper: 0 4px 24px rgba(0, 0, 0, 0.05);
+  --radius-card: 16px;
+  --radius-btn: 12px;
+  --radius-tag: 24px;
+}
+
+/* ── Base ── */
+html {
+  background: var(--color-canvas);
+  color: var(--color-ink);
+}
+
+body {
+  background: var(--color-canvas);
+  color: var(--color-ink);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ── Animations ── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fadeUp {
+  animation: fadeUp 0.5s ease-out both;
+}
+
+@keyframes scaleIn {
+  from { opacity: 0; transform: scale(0.96); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+.animate-scaleIn {
+  animation: scaleIn 0.3s ease-out both;
+}
+
+/* ── Component Utilities ── */
+@layer components {
+  .card-surface {
+    background: #ffffff;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-card);
+    box-shadow: var(--shadow-whisper);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  .card-surface:hover {
+    transform: scale(1.02);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+  }
+  .card-surface:active {
+    transform: scale(0.98);
+  }
+
+  .pill-tag {
+    display: inline-flex;
+    align-items: center;
+    padding: 4px 14px;
+    border-radius: var(--radius-tag);
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+  }
+
+  .btn-accent {
+    background: var(--color-accent);
+    color: var(--color-accent-text);
+    border-radius: var(--radius-btn);
+    padding: 10px 24px;
+    font-weight: 600;
+    font-size: 0.94rem;
+    transition: transform 0.15s ease, opacity 0.15s ease;
+    border: none;
+    cursor: pointer;
+  }
+  .btn-accent:hover {
+    transform: scale(1.03);
+  }
+  .btn-accent:active {
+    transform: scale(0.97);
+  }
+
+  .btn-ghost {
+    background: var(--color-accent);
+    color: var(--color-dark-green);
+    border-radius: var(--radius-btn);
+    padding: 10px 24px;
+    font-weight: 500;
+    font-size: 0.94rem;
+    transition: transform 0.15s ease, filter 0.15s ease;
+    border: none;
+    cursor: pointer;
+  }
+  .btn-ghost:hover {
+    filter: brightness(0.92);
+    transform: scale(1.03);
+  }
+  .btn-ghost:active {
+    transform: scale(0.97);
+  }
+}

@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Daily Trends — xAI Design</title>
+<link href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* === xAI Design Tokens === */
+:root {
+  --bg: #1f2228;
+  --white: #ffffff;
+  --text-secondary: rgba(255,255,255,0.7);
+  --text-muted: rgba(255,255,255,0.5);
+  --text-disabled: rgba(255,255,255,0.3);
+  --border-default: rgba(255,255,255,0.1);
+  --border-strong: rgba(255,255,255,0.2);
+  --surface-subtle: rgba(255,255,255,0.03);
+  --surface-hover: rgba(255,255,255,0.05);
+  --focus-ring: rgb(59,130,246);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  font-weight: 400;
+  color: var(--white);
+  background: var(--bg);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* === Navigation === */
+.nav {
+  position: sticky;
+  top: 0;
+  background: var(--bg);
+  z-index: 100;
+  padding: 0 24px;
+  border-bottom: 1px solid var(--border-default);
+}
+.nav-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 64px;
+}
+.nav-logo {
+  font-family: 'Geist Mono', ui-monospace, monospace;
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--white);
+  text-transform: uppercase;
+  letter-spacing: 1.4px;
+}
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  list-style: none;
+}
+.nav-links a {
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--white);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.nav-links a:hover { color: var(--text-muted); }
+.nav-cta {
+  font-family: 'Geist Mono', ui-monospace, monospace;
+  font-size: 14px;
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 1.4px;
+  background: var(--white);
+  color: var(--bg);
+  border: none;
+  padding: 12px 24px;
+  border-radius: 0px;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-block;
+  transition: background 0.2s;
+}
+.nav-cta:hover { background: rgba(255,255,255,0.9); }
+
+/* === Hero === */
+.hero {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 80px 24px 64px;
+  text-align: center;
+  min-height: 60vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.hero-label {
+  font-family: 'Geist Mono', ui-monospace, monospace;
+  font-size: 12px;
+  font-weight: 400;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  border: 1px solid var(--border-default);
+  padding: 4px 12px;
+  margin-bottom: 32px;
+  display: inline-block;
+}
+.hero h1 {
+  font-family: 'Geist Mono', ui-monospace, monospace;
+  font-size: clamp(48px, 10vw, 160px);
+  font-weight: 300;
+  color: var(--white);
+  line-height: 1.2;
+  margin-bottom: 24px;
+  word-break: break-all;
+}
+.hero p {
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 18px;
+  font-weight: 400;
+  color: var(--text-secondary);
+  line-height: 1.5;
+  max-width: 600px;
+  margin: 0 auto 40px;
+}
+.hero-actions {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.btn-primary {
+  font-family: 'Geist Mono', ui-monospace, monospace;
+  font-size: 14px;
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 1.4px;
+  background: var(--white);
+  color: var(--bg);
+  border: none;
+  padding: 12px 24px;
+  border-radius: 0px;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-block;
+  transition: background 0.2s;
+}
+.btn-primary:hover { background: rgba(255,255,255,0.9); }
+.btn-ghost {
+  font-family: 'Geist Mono', ui-monospace, monospace;
+  font-size: 14px;
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 1.4px;
+  background: transparent;
+  color: var(--white);
+  border: 1px solid var(--border-strong);
+  padding: 12px 24px;
+  border-radius: 0px;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-block;
+  transition: background 0.2s;
+}
+.btn-ghost:hover { background: var(--surface-hover); }
+
+/* === Category Tags === */
+.tags-bar {
+  max-width: 1200px;
+  margin: 0 auto 48px;
+  padding: 0 24px;
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.tag {
+  font-family: 'Geist Mono', ui-monospace, monospace;
+  font-size: 12px;
+  font-weight: 400;
+  color: var(--white);
+  background: transparent;
+  border: 1px solid var(--border-default);
+  padding: 6px 14px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.tag:hover { border-color: var(--border-strong); }
+.tag.active {
+  background: var(--white);
+  color: var(--bg);
+  border-color: var(--white);
+}
+
+/* === Cards Grid === */
+.cards-section {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px 64px;
+}
+.cards-section h2 {
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 30px;
+  font-weight: 400;
+  color: var(--white);
+  line-height: 1.2;
+  margin-bottom: 36px;
+}
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+.card {
+  background: var(--surface-subtle);
+  border: 1px solid var(--border-default);
+  padding: 24px;
+  transition: border-color 0.2s;
+  /* no border-radius — sharp edges */
+}
+.card:hover {
+  border-color: var(--border-strong);
+}
+.card-label {
+  font-family: 'Geist Mono', ui-monospace, monospace;
+  font-size: 12px;
+  font-weight: 400;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  border: 1px solid var(--border-default);
+  padding: 2px 8px;
+  display: inline-block;
+  margin-bottom: 16px;
+}
+.card-title {
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 22px;
+  font-weight: 400;
+  color: var(--white);
+  line-height: 1.25;
+  margin-bottom: 10px;
+}
+.card-desc {
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  color: var(--text-secondary);
+  line-height: 1.5;
+  margin-bottom: 20px;
+}
+.card-meta {
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 12px;
+  font-weight: 400;
+  color: var(--text-disabled);
+  line-height: 1.5;
+}
+/* card with image variant */
+.card-image-area {
+  height: 180px;
+  background: var(--surface-subtle);
+  border-bottom: 1px solid var(--border-default);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Geist Mono', monospace;
+  font-size: 12px;
+  color: var(--text-disabled);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* === Feature Section === */
+.feature-section {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px 64px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 64px;
+  align-items: center;
+}
+.feature-text h3 {
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 30px;
+  font-weight: 400;
+  color: var(--white);
+  line-height: 1.2;
+  margin-bottom: 16px;
+}
+.feature-text p {
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  color: var(--text-secondary);
+  line-height: 1.5;
+  margin-bottom: 24px;
+}
+.feature-image {
+  background: var(--surface-subtle);
+  border: 1px solid var(--border-default);
+  height: 320px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Geist Mono', monospace;
+  font-size: 14px;
+  color: var(--text-disabled);
+  text-transform: uppercase;
+  letter-spacing: 1.4px;
+}
+
+/* === Footer === */
+.footer {
+  border-top: 1px solid var(--border-default);
+  padding: 64px 24px 48px;
+}
+.footer-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 48px;
+}
+.footer-col h4 {
+  font-family: 'Geist Mono', ui-monospace, monospace;
+  font-size: 12px;
+  font-weight: 400;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 1.4px;
+  margin-bottom: 16px;
+}
+.footer-col a {
+  display: block;
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--text-secondary);
+  text-decoration: none;
+  margin-bottom: 8px;
+  transition: color 0.2s;
+}
+.footer-col a:hover { color: var(--text-muted); }
+.footer-bottom {
+  max-width: 1200px;
+  margin: 48px auto 0;
+  padding-top: 32px;
+  border-top: 1px solid var(--border-default);
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 16px;
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 12px;
+  font-weight: 400;
+  color: var(--text-disabled);
+}
+.footer-logo {
+  font-family: 'Geist Mono', ui-monospace, monospace;
+  font-size: 12px;
+  color: var(--text-disabled);
+  text-transform: uppercase;
+  letter-spacing: 1.4px;
+}
+
+/* === Color Palette Swatches === */
+.swatches-section {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px 80px;
+}
+.swatches-section h2 {
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 30px;
+  font-weight: 400;
+  color: var(--white);
+  line-height: 1.2;
+  margin-bottom: 24px;
+}
+.swatches {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 16px;
+}
+.swatch {
+  border: 1px solid var(--border-default);
+  overflow: hidden;
+}
+.swatch-color {
+  height: 72px;
+}
+.swatch-label {
+  padding: 10px 14px;
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--white);
+}
+.swatch-label small {
+  display: block;
+  font-family: 'Geist Mono', monospace;
+  font-size: 11px;
+  font-weight: 400;
+  color: var(--text-muted);
+  margin-top: 4px;
+  text-transform: uppercase;
+}
+
+/* === Responsive === */
+@media (max-width: 1024px) {
+  .cards-grid { grid-template-columns: repeat(2, 1fr); }
+  .feature-section { grid-template-columns: 1fr; gap: 40px; }
+}
+@media (max-width: 768px) {
+  .footer-inner { grid-template-columns: repeat(2, 1fr); }
+  .nav-links { display: none; }
+}
+@media (max-width: 640px) {
+  .cards-grid { grid-template-columns: 1fr; }
+  .hero { padding: 48px 24px 40px; min-height: auto; }
+  .footer-inner { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<!-- Navigation -->
+<nav class="nav">
+  <div class="nav-inner">
+    <div class="nav-logo">AI Daily</div>
+    <ul class="nav-links">
+      <li><a href="#">News</a></li>
+      <li><a href="#">API</a></li>
+      <li><a href="#">Docs</a></li>
+      <li><a href="#">Company</a></li>
+    </ul>
+    <div>
+      <a href="#" class="nav-cta">Subscribe</a>
+    </div>
+  </div>
+</nav>
+
+<!-- Hero -->
+<section class="hero">
+  <div class="hero-label">AI Newsletter</div>
+  <h1>AI Daily<br>Trends</h1>
+  <p>Minimal signal. Maximum insight. A curated feed of artificial intelligence news, delivered with brutalist clarity.</p>
+  <div class="hero-actions">
+    <a href="#" class="btn-primary">Start reading</a>
+    <a href="#" class="btn-ghost">Learn more</a>
+  </div>
+</section>
+
+<!-- Category Tags -->
+<div class="tags-bar">
+  <button class="tag active">All</button>
+  <button class="tag">LLMs</button>
+  <button class="tag">Robotics</button>
+  <button class="tag">Research</button>
+  <button class="tag">Policy</button>
+  <button class="tag">Tools</button>
+  <button class="tag">Startups</button>
+</div>
+
+<!-- News Cards -->
+<section class="cards-section">
+  <h2>Latest stories</h2>
+  <div class="cards-grid">
+    <article class="card">
+      <div class="card-image-area">OpenAI</div>
+      <div style="padding:24px;">
+        <span class="card-label">Breaking</span>
+        <h3 class="card-title">OpenAI Releases GPT-5</h3>
+        <p class="card-desc">Next-generation model with enhanced reasoning, multimodal capabilities, and a 1M token context window sets new benchmarks across the board.</p>
+        <p class="card-meta">2026-05-28 &middot; 8 min read</p>
+      </div>
+    </article>
+    <article class="card">
+      <div class="card-image-area">DeepMind</div>
+      <div style="padding:24px;">
+        <span class="card-label">New</span>
+        <h3 class="card-title">Google DeepMind Unveils Gemini</h3>
+        <p class="card-desc">A unified architecture that merges AlphaGo-style planning with large-scale language understanding for general-purpose reasoning.</p>
+        <p class="card-meta">2026-05-29 &middot; 6 min read</p>
+      </div>
+    </article>
+    <article class="card">
+      <div class="card-image-area">Anthropic</div>
+      <div style="padding:24px;">
+        <span class="card-label">Update</span>
+        <h3 class="card-title">Anthropic Claude Gets Web Search</h3>
+        <p class="card-desc">Claude now integrates real-time web search with source attribution, making it the first constitutional AI with live internet access.</p>
+        <p class="card-meta">2026-05-30 &middot; 5 min read</p>
+      </div>
+    </article>
+  </div>
+</section>
+
+<!-- Feature Section -->
+<section class="feature-section">
+  <div class="feature-text">
+    <h3>No gradients. No shadows. Just signal.</h3>
+    <p>Every morning, a precisely curated digest of what matters in AI. No spam, no noise, no decorative elements. Pure information architecture.</p>
+    <a href="#" class="btn-primary">Get started</a>
+  </div>
+  <div class="feature-image">Dashboard Preview</div>
+</section>
+
+<!-- Footer -->
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-col">
+      <h4>Product</h4>
+      <a href="#">Newsletter</a>
+      <a href="#">API</a>
+      <a href="#">Grok</a>
+      <a href="#">Status</a>
+    </div>
+    <div class="footer-col">
+      <h4>Company</h4>
+      <a href="#">About</a>
+      <a href="#">Blog</a>
+      <a href="#">Careers</a>
+      <a href="#">Press</a>
+    </div>
+    <div class="footer-col">
+      <h4>Resources</h4>
+      <a href="#">Documentation</a>
+      <a href="#">API Reference</a>
+      <a href="#">Guides</a>
+      <a href="#">Research</a>
+    </div>
+    <div class="footer-col">
+      <h4>Legal</h4>
+      <a href="#">Privacy Policy</a>
+      <a href="#">Terms of Service</a>
+      <a href="#">Security</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>&copy; 2026 AI Daily Trends. All rights reserved.</span>
+    <span class="footer-logo">AI DAILY</span>
+  </div>
+</footer>
+
+<!-- Color Palette Swatches -->
+<section class="swatches-section">
+  <h2>Design Palette</h2>
+  <div class="swatches">
+    <div class="swatch"><div class="swatch-color" style="background:#1f2228;"></div><div class="swatch-label">Background<small>#1f2228</small></div></div>
+    <div class="swatch"><div class="swatch-color" style="background:#ffffff;"></div><div class="swatch-label">Text Primary<small>#ffffff</small></div></div>
+    <div class="swatch"><div class="swatch-color" style="background:rgba(255,255,255,0.7);"></div><div class="swatch-label">Text Secondary<small>rgba(255,255,255,0.7)</small></div></div>
+    <div class="swatch"><div class="swatch-color" style="background:rgba(255,255,255,0.5);"></div><div class="swatch-label">Text Muted<small>rgba(255,255,255,0.5)</small></div></div>
+    <div class="swatch"><div class="swatch-color" style="background:rgba(255,255,255,0.1);"></div><div class="swatch-label">Border Default<small>rgba(255,255,255,0.1)</small></div></div>
+    <div class="swatch"><div class="swatch-color" style="background:rgba(255,255,255,0.2);"></div><div class="swatch-label">Border Strong<small>rgba(255,255,255,0.2)</small></div></div>
+    <div class="swatch"><div class="swatch-color" style="background:rgba(255,255,255,0.03);"></div><div class="swatch-label">Surface Subtle<small>rgba(255,255,255,0.03)</small></div></div>
+    <div class="swatch"><div class="swatch-color" style="background:rgba(255,255,255,0.05);"></div><div class="swatch-label">Surface Hover<small>rgba(255,255,255,0.05)</small></div></div>
+    <div class="swatch"><div class="swatch-color" style="background:rgb(59,130,246);"></div><div class="swatch-label">Focus Ring<small>rgb(59,130,246)</small></div></div>
+  </div>
+</section>
+
+</body>
+</html>

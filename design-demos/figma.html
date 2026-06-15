@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Daily Trends — Figma Design Demo</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* === Figma Design System Tokens === */
+:root {
+  --color-black: #000000;
+  --color-white: #ffffff;
+  --color-glass-dark: rgba(0, 0, 0, 0.08);
+  --color-glass-light: rgba(255, 255, 255, 0.16);
+  --radius-pill: 50px;
+  --radius-circle: 50%;
+  --radius-card: 8px;
+  --radius-small: 6px;
+  --font-sans: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: var(--font-sans);
+  background: var(--color-white);
+  color: var(--color-black);
+  line-height: 1.45;
+  -webkit-font-smoothing: antialiased;
+  font-feature-settings: "kern" 1;
+}
+
+/* === Navigation === */
+.nav {
+  position: sticky; top: 0; z-index: 100;
+  background: var(--color-white);
+  padding: 0 24px;
+  border-bottom: 1px solid var(--color-black);
+}
+.nav-inner {
+  max-width: 1200px; margin: 0 auto;
+  display: flex; align-items: center; justify-content: space-between;
+  height: 56px;
+}
+.nav-logo {
+  font-size: 18px; font-weight: 540; letter-spacing: -0.26px;
+  color: var(--color-black);
+}
+.nav-tabs { display: flex; gap: 4px; }
+.nav-tab {
+  padding: 8px 18px; border-radius: var(--radius-pill);
+  font-size: 16px; font-weight: 450; letter-spacing: -0.14px;
+  color: var(--color-black); text-decoration: none;
+  background: transparent; transition: background 150ms ease;
+}
+.nav-tab:hover { background: var(--color-glass-dark); }
+.nav-tab.active { background: var(--color-black); color: var(--color-white); }
+.nav-cta {
+  display: inline-block; padding: 8px 18px 10px;
+  background: var(--color-black); color: var(--color-white);
+  font-size: 16px; font-weight: 450; letter-spacing: -0.14px;
+  border-radius: var(--radius-pill); text-decoration: none;
+  transition: opacity 150ms ease;
+}
+.nav-cta:hover { opacity: 0.85; }
+.nav-cta:focus-visible { outline: 2px dashed var(--color-black); outline-offset: 2px; }
+
+/* === Hero with Multi-Color Gradient === */
+.hero {
+  padding: 120px 24px;
+  background: linear-gradient(135deg, #00e676 0%, #ffeb3b 25%, #e040fb 50%, #ff4081 75%, #00e676 100%);
+  text-align: center;
+  position: relative; overflow: hidden;
+}
+.hero::after {
+  content: ''; position: absolute; inset: 0;
+  background: radial-gradient(ellipse at center, rgba(255,255,255,0.2) 0%, transparent 70%);
+}
+.hero-inner { position: relative; z-index: 1; max-width: 900px; margin: 0 auto; }
+.hero-label {
+  display: inline-block; font-family: var(--font-mono); font-size: 0.75rem;
+  font-weight: 400; letter-spacing: 0.6px; text-transform: uppercase;
+  color: var(--color-white); margin-bottom: 16px;
+  background: var(--color-glass-light); padding: 4px 12px; border-radius: var(--radius-pill);
+}
+.hero h1 {
+  font-size: 5.38rem; font-weight: 400;
+  line-height: 1.00; letter-spacing: -1.72px;
+  color: var(--color-white); margin-bottom: 20px;
+}
+.hero p {
+  font-size: 1.25rem; font-weight: 330;
+  line-height: 1.40; letter-spacing: -0.14px;
+  color: var(--color-white); max-width: 600px; margin: 0 auto 32px;
+  opacity: 0.9;
+}
+.hero-cta {
+  display: inline-block; padding: 8px 18px 10px;
+  background: var(--color-white); color: var(--color-black);
+  font-size: 16px; font-weight: 450; letter-spacing: -0.14px;
+  border-radius: var(--radius-pill); text-decoration: none;
+  transition: opacity 150ms ease;
+}
+.hero-cta:hover { opacity: 0.85; }
+.hero-cta:focus-visible { outline: 2px dashed var(--color-white); outline-offset: 2px; }
+
+/* === Category Pills (Pill Tab Bar) === */
+.category-pills {
+  display: flex; gap: 8px; flex-wrap: wrap;
+  max-width: 1200px; margin: 0 auto 48px; padding: 48px 24px 0;
+  justify-content: center;
+}
+.cat-pill {
+  display: inline-block; padding: 8px 18px;
+  font-size: 16px; font-weight: 450; letter-spacing: -0.14px;
+  color: var(--color-black); background: transparent;
+  border-radius: var(--radius-pill); text-decoration: none;
+  transition: background 150ms ease, color 150ms ease;
+}
+.cat-pill:hover { background: var(--color-glass-dark); }
+.cat-pill.active { background: var(--color-black); color: var(--color-white); }
+.cat-pill:focus-visible { outline: 2px dashed var(--color-black); outline-offset: 2px; }
+
+/* === News Grid === */
+.news-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 32px;
+  max-width: 1200px; margin: 0 auto 64px; padding: 0 24px;
+}
+.news-card {
+  background: var(--color-white);
+  border: none;
+  border-radius: var(--radius-card);
+  box-shadow: rgba(0,0,0,0.06) 0px 4px 16px;
+  padding: 32px 28px;
+  transition: box-shadow 200ms ease;
+}
+.news-card:hover { box-shadow: rgba(0,0,0,0.12) 0px 8px 32px; }
+.news-card-label {
+  font-family: var(--font-mono); font-size: 0.75rem; font-weight: 400;
+  letter-spacing: 0.6px; text-transform: uppercase;
+  color: var(--color-black); opacity: 0.55; margin-bottom: 16px; display: block;
+}
+.news-card h3 {
+  font-size: 1.5rem; font-weight: 700; line-height: 1.45;
+  letter-spacing: normal; color: var(--color-black); margin-bottom: 10px;
+}
+.news-card p {
+  font-size: 1.13rem; font-weight: 320;
+  line-height: 1.45; letter-spacing: normal;
+  color: var(--color-black); opacity: 0.7; margin-bottom: 20px;
+}
+.news-card-link {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 40px; height: 40px; border-radius: var(--radius-circle);
+  background: var(--color-glass-dark); color: var(--color-black);
+  text-decoration: none; font-size: 18px; font-weight: 500;
+  transition: background 150ms ease;
+}
+.news-card-link:hover { background: rgba(0,0,0,0.14); }
+.news-card-link:focus-visible { outline: 2px dashed var(--color-black); outline-offset: 2px; }
+
+/* === Features / Monospace Label Section === */
+.mono-section { max-width: 1200px; margin: 0 auto 64px; padding: 0 24px; text-align: center; }
+.mono-label {
+  font-family: var(--font-mono); font-size: 1.13rem; font-weight: 400;
+  line-height: 1.30; letter-spacing: 0.54px; text-transform: uppercase;
+  color: var(--color-black); margin-bottom: 24px; display: block;
+}
+.mono-section h2 {
+  font-size: 4rem; font-weight: 400; line-height: 1.10;
+  letter-spacing: -0.96px; color: var(--color-black); margin-bottom: 16px;
+}
+.mono-section p {
+  font-size: 1.25rem; font-weight: 330; line-height: 1.40;
+  letter-spacing: -0.14px; color: var(--color-black); opacity: 0.7;
+  max-width: 650px; margin: 0 auto;
+}
+
+/* === Footer === */
+.footer {
+  border-top: 1px solid var(--color-black);
+  padding: 48px 24px 32px;
+  max-width: 1200px; margin: 0 auto;
+  text-align: center;
+}
+.footer-links { display: flex; gap: 24px; justify-content: center; flex-wrap: wrap; margin-bottom: 24px; }
+.footer-links a {
+  color: var(--color-black); text-decoration: none;
+  font-size: 16px; font-weight: 400; letter-spacing: -0.14px;
+  transition: opacity 150ms ease;
+}
+.footer-links a:hover { opacity: 0.55; text-decoration: underline; text-underline-offset: 4px; text-decoration-thickness: 1px; }
+.footer p {
+  font-size: 16px; font-weight: 320; letter-spacing: -0.14px;
+  color: var(--color-black); opacity: 0.55;
+}
+
+/* === Palette Swatches (B&W only for Figma interface) === */
+.palette-section { max-width: 1200px; margin: 0 auto 64px; padding: 0 24px; }
+.palette-section h2 {
+  font-size: 1.63rem; font-weight: 540; line-height: 1.35;
+  letter-spacing: -0.26px; color: var(--color-black);
+  margin-bottom: 20px; text-align: center;
+}
+.swatches { display: flex; gap: 16px; flex-wrap: wrap; justify-content: center; align-items: flex-start; }
+.swatch {
+  width: 90px; height: 90px; border-radius: var(--radius-circle);
+  border: 1px solid rgba(0,0,0,0.1);
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+}
+.swatch-dark { background: #000000; }
+.swatch-light { background: #ffffff; }
+.swatch-glass { background: rgba(0,0,0,0.08); }
+.swatch-label { font-size: 11px; margin-top: 8px; color: var(--color-black); opacity: 0.55; text-align: center; }
+
+/* === Responsive === */
+@media (max-width: 960px) {
+  .news-grid { grid-template-columns: repeat(2, 1fr); gap: 24px; }
+  .hero h1 { font-size: 3.5rem; letter-spacing: -0.96px; }
+  .mono-section h2 { font-size: 2.5rem; letter-spacing: -0.72px; }
+}
+@media (max-width: 768px) {
+  .hero h1 { font-size: 2.8rem; }
+  .nav-tabs { display: none; }
+}
+@media (max-width: 560px) {
+  .news-grid { grid-template-columns: 1fr; }
+  .hero { padding: 80px 20px; }
+  .hero h1 { font-size: 2.25rem; letter-spacing: -0.72px; }
+  .hero p { font-size: 1rem; }
+  .mono-section h2 { font-size: 2rem; }
+  .category-pills { gap: 6px; }
+}
+</style>
+</head>
+<body>
+
+<!-- Navigation (Pill Tab Bar) -->
+<nav class="nav">
+  <div class="nav-inner">
+    <span class="nav-logo">AI Daily Trends</span>
+    <div class="nav-tabs">
+      <a href="#" class="nav-tab active">Design</a>
+      <a href="#" class="nav-tab">Dev Mode</a>
+      <a href="#" class="nav-tab">Prototyping</a>
+      <a href="#" class="nav-tab">Slides</a>
+    </div>
+    <a href="#" class="nav-cta">Subscribe</a>
+  </div>
+</nav>
+
+<!-- Hero -->
+<section class="hero">
+  <div class="hero-inner">
+    <span class="hero-label">DAILY BRIEFING</span>
+    <h1>AI Daily Trends</h1>
+    <p>The interface is black and white. The content is where color lives. Figma's design ethos applied to AI news.</p>
+    <a href="#" class="hero-cta">Read Today's Edition</a>
+  </div>
+</section>
+
+<!-- Category Pills -->
+<div class="category-pills">
+  <a href="#" class="cat-pill active">All</a>
+  <a href="#" class="cat-pill">LLMs</a>
+  <a href="#" class="cat-pill">Vision</a>
+  <a href="#" class="cat-pill">Robotics</a>
+  <a href="#" class="cat-pill">Policy</a>
+  <a href="#" class="cat-pill">Research</a>
+</div>
+
+<!-- News Cards -->
+<section class="news-grid">
+  <article class="news-card">
+    <span class="news-card-label">LLM &middot; RELEASE</span>
+    <h3>OpenAI Releases GPT-5</h3>
+    <p>OpenAI unveils GPT-5 with significant improvements in reasoning, multimodal capabilities, and agentic workflows. Early benchmarks show 30% gains over GPT-4.</p>
+    <a href="#" class="news-card-link" aria-label="Read more about GPT-5">&rarr;</a>
+  </article>
+  <article class="news-card">
+    <span class="news-card-label">RESEARCH</span>
+    <h3>Google DeepMind Unveils Gemini</h3>
+    <p>DeepMind's Gemini 2.0 pushes the frontier on coding benchmarks, matching top competitive programmers while maintaining safety guardrails.</p>
+    <a href="#" class="news-card-link" aria-label="Read more about Gemini">&rarr;</a>
+  </article>
+  <article class="news-card">
+    <span class="news-card-label">PRODUCT</span>
+    <h3>Anthropic Claude Gets Web Search</h3>
+    <p>Claude now includes built-in web search with source attribution, bridging the gap between static knowledge and real-time information retrieval.</p>
+    <a href="#" class="news-card-link" aria-label="Read more about Claude">&rarr;</a>
+  </article>
+</section>
+
+<!-- Mono Label Feature Section -->
+<section class="mono-section">
+  <span class="mono-label">How It Works</span>
+  <h2>Curated. Precise. Daily.</h2>
+  <p>Every morning, our editors surface the three most consequential AI developments — delivered through a design system where the interface disappears and the content speaks.</p>
+</section>
+
+<!-- Footer -->
+<footer class="footer">
+  <div class="footer-links">
+    <a href="#">About</a>
+    <a href="#">Archive</a>
+    <a href="#">Subscribe</a>
+    <a href="#">Contact</a>
+    <a href="#">RSS</a>
+  </div>
+  <p>&copy; 2026 AI Daily Trends. Built with the Figma design system.</p>
+</footer>
+
+<!-- Palette -->
+<section class="palette-section">
+  <h2>Interface Palette (B&amp;W Only)</h2>
+  <div class="swatches">
+    <div><div class="swatch swatch-dark"></div><div class="swatch-label">Pure Black<br>#000000</div></div>
+    <div><div class="swatch swatch-light"></div><div class="swatch-label">Pure White<br>#ffffff</div></div>
+    <div><div class="swatch swatch-glass"></div><div class="swatch-label">Glass Dark<br>rgba(0,0,0,0.08)</div></div>
+    <div style="width:90px;height:90px;border-radius:50%;background:linear-gradient(135deg,#00e676,#ffeb3b,#e040fb,#ff4081);border:1px solid rgba(0,0,0,0.1)"></div><div class="swatch-label">Hero Gradient<br>(product color)</div></div>
+  </div>
+</section>
+
+</body>
+</html>

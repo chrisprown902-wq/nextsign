@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Daily Trends — Claude Design</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  background: #f5f4ed;
+  color: #141413;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* --- Navigation --- */
+nav {
+  position: sticky; top: 0; z-index: 100;
+  background: rgba(245,244,237,0.92);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid #f0eee6;
+  padding: 0 24px; height: 56px;
+  display: flex; align-items: center; justify-content: center;
+}
+nav .nav-inner {
+  width: 100%; max-width: 1200px;
+  display: flex; align-items: center; justify-content: space-between;
+}
+nav .logo {
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 20px; font-weight: 500; color: #141413;
+}
+nav .nav-links {
+  display: flex; gap: 28px; list-style: none;
+}
+nav .nav-links a {
+  font-size: 15px; font-weight: 400; line-height: 1.60;
+  color: #5e5d59; text-decoration: none;
+}
+nav .nav-links a:hover { color: #141413; }
+nav .nav-cta {
+  padding: 6px 16px;
+  background: #c96442; color: #faf9f5;
+  font-size: 14px; font-weight: 500; border-radius: 8px;
+  text-decoration: none; box-shadow: #c96442 0px 0px 0px 0px, #c96442 0px 0px 0px 1px;
+}
+nav .nav-cta:hover { background: #b8583a; }
+@media (max-width: 768px) {
+  nav .nav-links { display: none; }
+}
+
+/* --- Hero Section --- */
+.hero {
+  background: #f5f4ed; text-align: center;
+  padding: 80px 20px 64px;
+}
+.hero h1 {
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 4rem; font-weight: 500; line-height: 1.10; color: #141413;
+}
+.hero .subtitle {
+  font-size: 1.25rem; font-weight: 400; line-height: 1.60;
+  color: #5e5d59; max-width: 600px; margin: 16px auto 0;
+}
+.hero .cta-row {
+  margin-top: 32px; display: flex; gap: 14px; justify-content: center; flex-wrap: wrap;
+}
+.btn-terracotta {
+  display: inline-block; padding: 10px 24px;
+  font-family: 'Inter', sans-serif; font-size: 16px; font-weight: 500;
+  line-height: 1.25; color: #faf9f5; text-decoration: none;
+  background: #c96442; border-radius: 12px;
+  box-shadow: #c96442 0px 0px 0px 0px, #c96442 0px 0px 0px 1px;
+}
+.btn-terracotta:hover { background: #b8583a; }
+.btn-terracotta:focus-visible { outline: 2px solid #3898ec; outline-offset: 2px; }
+.btn-warm {
+  display: inline-block; padding: 10px 24px;
+  font-family: 'Inter', sans-serif; font-size: 16px; font-weight: 500;
+  line-height: 1.25; color: #4d4c48; text-decoration: none;
+  background: #e8e6dc; border-radius: 8px;
+  box-shadow: #e8e6dc 0px 0px 0px 0px, #d1cfc5 0px 0px 0px 1px;
+}
+.btn-warm:hover { background: #ddd9cf; }
+.btn-warm:focus-visible { outline: 2px solid #3898ec; outline-offset: 2px; }
+
+/* --- Category Pills --- */
+.section-ivory {
+  background: #faf9f5; padding: 52px 20px; text-align: center;
+  border-top: 1px solid #f0eee6;
+}
+.section-ivory h2 {
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 2.25rem; font-weight: 500; line-height: 1.20; color: #141413;
+  margin-bottom: 24px;
+}
+.pills-row {
+  display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;
+  max-width: 1000px; margin: 0 auto;
+}
+.pill-filter {
+  padding: 8px 18px;
+  font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 400;
+  line-height: 1.43; color: #4d4c48;
+  background: #ffffff; border: 1px solid #f0eee6; border-radius: 24px;
+  cursor: pointer;
+}
+.pill-filter:hover { border-color: #e8e6dc; box-shadow: rgba(0,0,0,0.05) 0px 4px 24px; }
+.pill-filter:focus-visible { outline: 2px solid #3898ec; outline-offset: 2px; }
+
+/* --- Dark Section + Cards --- */
+.section-dark {
+  background: #141413; padding: 72px 20px; text-align: center;
+  color: #faf9f5;
+}
+.section-dark h2 {
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 2.50rem; font-weight: 500; line-height: 1.20; color: #faf9f5;
+  margin-bottom: 36px;
+}
+.card-grid {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+  gap: 24px; max-width: 1100px; margin: 0 auto;
+}
+.card {
+  background: #30302e; color: #faf9f5;
+  border: 1px solid #30302e; border-radius: 16px;
+  padding: 28px 24px; text-align: left;
+  box-shadow: rgba(0,0,0,0.05) 0px 4px 24px;
+}
+.card .card-tag {
+  font-family: 'Inter', sans-serif;
+  font-size: 12px; font-weight: 500; color: #d97757;
+  text-transform: uppercase; letter-spacing: 0.12px; margin-bottom: 10px;
+}
+.card h3 {
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 1.5rem; font-weight: 500; line-height: 1.10; color: #faf9f5;
+  margin-bottom: 10px;
+}
+.card p {
+  font-family: 'Inter', sans-serif;
+  font-size: 15px; font-weight: 400; line-height: 1.60; color: #b0aea5;
+  margin-bottom: 18px;
+}
+.card .card-link {
+  font-family: 'Inter', sans-serif;
+  font-size: 14px; font-weight: 500; line-height: 1.43;
+  color: #d97757; text-decoration: none;
+}
+.card .card-link:hover { text-decoration: underline; }
+
+/* --- Footer --- */
+.section-footer {
+  background: #f5f4ed; padding: 44px 20px; text-align: center;
+  border-top: 1px solid #f0eee6;
+}
+.section-footer .footer-text {
+  font-family: 'Inter', sans-serif;
+  font-size: 14px; font-weight: 400; line-height: 1.43; color: #87867f;
+}
+
+/* --- Color Swatches --- */
+.swatches {
+  padding: 48px 20px; text-align: center;
+  background: #faf9f5; border-top: 1px solid #f0eee6;
+}
+.swatches h2 {
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 2rem; font-weight: 500; line-height: 1.20; color: #141413;
+  margin-bottom: 24px;
+}
+.swatch-grid {
+  display: flex; gap: 12px; flex-wrap: wrap; justify-content: center;
+  max-width: 1100px; margin: 0 auto;
+}
+.swatch {
+  width: 68px; height: 68px; border-radius: 8px;
+  display: flex; align-items: flex-end; justify-content: center;
+  padding-bottom: 6px;
+  font-family: 'Inter', sans-serif; font-size: 10px; font-weight: 500;
+}
+.swatch-label { margin-top: 4px; font-size: 11px; color: #87867f; }
+
+/* Responsive */
+@media (max-width: 768px) {
+  .hero h1 { font-size: 2.50rem; }
+  .card-grid { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <div class="logo">AI Trends</div>
+    <ul class="nav-links">
+      <li><a href="#">Today</a></li>
+      <li><a href="#">Models</a></li>
+      <li><a href="#">Research</a></li>
+      <li><a href="#">Products</a></li>
+      <li><a href="#">Policy</a></li>
+    </ul>
+    <a href="#" class="nav-cta">Subscribe</a>
+  </div>
+</nav>
+
+<section class="hero">
+  <h1>AI Daily Trends</h1>
+  <p class="subtitle">Thoughtful curation of the most important developments in artificial intelligence, written with clarity and care.</p>
+  <div class="cta-row">
+    <a href="#" class="btn-terracotta">Subscribe to newsletter</a>
+    <a href="#" class="btn-warm">Browse archive</a>
+  </div>
+</section>
+
+<section class="section-ivory">
+  <h2>Explore Categories</h2>
+  <div class="pills-row">
+    <button class="pill-filter">Large Language Models</button>
+    <button class="pill-filter">Computer Vision</button>
+    <button class="pill-filter">Robotics</button>
+    <button class="pill-filter">AI Safety</button>
+    <button class="pill-filter">Open Source</button>
+    <button class="pill-filter">Enterprise AI</button>
+  </div>
+</section>
+
+<section class="section-dark">
+  <h2>Latest Stories</h2>
+  <div class="card-grid">
+    <div class="card">
+      <div class="card-tag">Models</div>
+      <h3>OpenAI Releases GPT-5</h3>
+      <p>Next-generation reasoning with multimodal understanding across text, images, and code — setting new benchmarks.</p>
+      <a href="#" class="card-link">Read more &rarr;</a>
+    </div>
+    <div class="card">
+      <div class="card-tag">Research</div>
+      <h3>Google DeepMind Unveils Gemini</h3>
+      <p>A unified AI system that processes text, audio, video, and code natively, outperforming specialized systems.</p>
+      <a href="#" class="card-link">Read more &rarr;</a>
+    </div>
+    <div class="card">
+      <div class="card-tag">Products</div>
+      <h3>Anthropic Claude Gets Web Search</h3>
+      <p>Claude now browses the live web with inline citations, bringing verifiable real-time knowledge to every conversation.</p>
+      <a href="#" class="card-link">Read more &rarr;</a>
+    </div>
+  </div>
+</section>
+
+<footer class="section-footer">
+  <p class="footer-text">Copyright &copy; 2026 AI Daily Trends. Anthropic Claude design language demo.</p>
+</footer>
+
+<section class="swatches">
+  <h2>Color Palette</h2>
+  <div class="swatch-grid">
+    <div>
+      <div class="swatch" style="background:#f5f4ed;color:#141413;">f5f4ed</div>
+      <div class="swatch-label">Parchment</div>
+    </div>
+    <div>
+      <div class="swatch" style="background:#faf9f5;color:#141413;">faf9f5</div>
+      <div class="swatch-label">Ivory</div>
+    </div>
+    <div>
+      <div class="swatch" style="background:#141413;color:#faf9f5;">#141413</div>
+      <div class="swatch-label">Near Black</div>
+    </div>
+    <div>
+      <div class="swatch" style="background:#c96442;color:#faf9f5;">#c96442</div>
+      <div class="swatch-label">Terracotta</div>
+    </div>
+    <div>
+      <div class="swatch" style="background:#d97757;color:#ffffff;">#d97757</div>
+      <div class="swatch-label">Coral</div>
+    </div>
+    <div>
+      <div class="swatch" style="background:#5e5d59;color:#ffffff;">#5e5d59</div>
+      <div class="swatch-label">Olive Gray</div>
+    </div>
+    <div>
+      <div class="swatch" style="background:#30302e;color:#faf9f5;">#30302e</div>
+      <div class="swatch-label">Dark Surface</div>
+    </div>
+    <div>
+      <div class="swatch" style="background:#e8e6dc;color:#4d4c48;">e8e6dc</div>
+      <div class="swatch-label">Warm Sand</div>
+    </div>
+  </div>
+</section>
+
+</body>
+</html>

@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Daily Trends — Spotify Design</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap" rel="stylesheet">
+<style>
+/* ===== RESET ===== */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+/* ===== DESIGN TOKENS ===== */
+:root{
+  --spotify-green:#1ed760;
+  --near-black:#121212;
+  --dark-surface:#181818;
+  --mid-dark:#1f1f1f;
+  --dark-card:#252525;
+  --mid-card:#272727;
+  --text-base:#ffffff;
+  --text-secondary:#b3b3b3;
+  --text-bright:#cbcbcb;
+  --text-max:#fdfdfd;
+  --negative-red:#f3727f;
+  --warning-orange:#ffa42b;
+  --announce-blue:#539df5;
+  --border-gray:#4d4d4d;
+  --light-border:#7c7c7c;
+  --light-surface:#eeeeee;
+  --green-border:#1db954;
+  --shadow-heavy:rgba(0,0,0,0.5) 0px 8px 24px;
+  --shadow-medium:rgba(0,0,0,0.3) 0px 8px 8px;
+  --shadow-inset:rgb(18,18,18) 0px 1px 0px,rgb(124,124,124) 0px 0px 0px 1px inset;
+  --font-ui:'DM Sans',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+  --radius-pill-sm:9999px;
+  --radius-pill-lg:500px;
+  --radius-circle:50%;
+  --radius-card:8px;
+  --radius-container:6px;
+}
+body{
+  font-family:var(--font-ui);
+  font-weight:400;
+  font-size:16px;
+  line-height:normal;
+  color:var(--text-base);
+  background:var(--near-black);
+  -webkit-font-smoothing:antialiased;
+}
+/* ===== SIDEBAR / NAV ===== */
+nav{
+  position:fixed;
+  top:0;
+  left:0;
+  width:240px;
+  height:100vh;
+  background:var(--near-black);
+  padding:24px 16px;
+  display:flex;
+  flex-direction:column;
+  gap:24px;
+  z-index:10;
+}
+.nav-logo{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  font-size:24px;
+  font-weight:700;
+  color:var(--text-base);
+  padding:0 12px;
+  margin-bottom:8px;
+}
+.nav-logo-dot{
+  width:24px;
+  height:24px;
+  border-radius:var(--radius-circle);
+  background:var(--spotify-green);
+  flex-shrink:0;
+}
+.nav-section-title{
+  font-size:12px;
+  font-weight:700;
+  line-height:1.5;
+  color:var(--text-secondary);
+  padding:0 12px;
+  text-transform:uppercase;
+  letter-spacing:1.4px;
+  margin-top:8px;
+}
+.nav-links{
+  list-style:none;
+  display:flex;
+  flex-direction:column;
+  gap:4px;
+}
+.nav-links a{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  padding:8px 12px;
+  border-radius:4px;
+  text-decoration:none;
+  font-size:14px;
+  font-weight:400;
+  color:var(--text-secondary);
+  transition:color 0.15s;
+}
+.nav-links a.active{
+  font-weight:700;
+  color:var(--text-base);
+}
+.nav-links a:hover{color:var(--text-base)}
+.nav-links a .nav-icon{
+  width:24px;
+  height:24px;
+  border-radius:2px;
+  background:currentColor;
+  opacity:0.5;
+  flex-shrink:0;
+}
+.nav-links a.active .nav-icon{opacity:1}
+/* ===== MAIN CONTENT ===== */
+main{
+  margin-left:240px;
+  min-height:100vh;
+  padding-bottom:40px;
+}
+/* ===== HEADER BAR ===== */
+.header-bar{
+  position:sticky;
+  top:0;
+  z-index:9;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:16px 32px;
+  background:rgba(18,18,18,0.95);
+  backdrop-filter:blur(10px);
+}
+.header-nav-pills{
+  display:flex;
+  gap:8px;
+}
+.header-pill{
+  padding:8px 16px;
+  border-radius:var(--radius-pill-sm);
+  background:var(--mid-dark);
+  color:var(--text-base);
+  font-size:14px;
+  font-weight:700;
+  line-height:1.0;
+  font-family:var(--font-ui);
+  cursor:pointer;
+  border:none;
+  text-decoration:none;
+  text-transform:uppercase;
+  letter-spacing:1.4px;
+  transition:background 0.15s;
+}
+.header-pill.active{
+  background:var(--text-base);
+  color:var(--near-black);
+}
+.header-pill:hover:not(.active){
+  background:var(--dark-card);
+}
+.header-user{
+  display:flex;
+  align-items:center;
+  gap:8px;
+}
+.header-user-avatar{
+  width:32px;
+  height:32px;
+  border-radius:var(--radius-circle);
+  background:var(--mid-dark);
+}
+/* ===== HERO BANNER ===== */
+.hero-banner{
+  background:linear-gradient(135deg,#1a1a2e 0%,#2d1b3d 40%,#1a3a2a 100%);
+  margin:8px 32px 24px;
+  border-radius:var(--radius-card);
+  padding:48px 40px;
+  position:relative;
+  overflow:hidden;
+}
+.hero-banner::before{
+  content:'';
+  position:absolute;
+  top:-30%;
+  right:-10%;
+  width:300px;
+  height:300px;
+  border-radius:var(--radius-circle);
+  background:rgba(30,215,96,0.08);
+  z-index:0;
+}
+.hero-banner-content{
+  position:relative;
+  z-index:1;
+}
+.hero-badge{
+  display:inline-block;
+  padding:4px 12px;
+  border-radius:2px;
+  background:var(--spotify-green);
+  color:var(--near-black);
+  font-size:10.5px;
+  font-weight:600;
+  line-height:1.33;
+  text-transform:capitalize;
+  margin-bottom:16px;
+}
+.hero-banner h1{
+  font-size:24px;
+  font-weight:700;
+  line-height:normal;
+  color:var(--text-base);
+  margin-bottom:8px;
+}
+.hero-banner p{
+  font-size:14px;
+  font-weight:400;
+  color:var(--text-secondary);
+  max-width:500px;
+  margin-bottom:24px;
+}
+/* ===== SECTION ===== */
+.section{
+  padding:0 32px 32px;
+}
+.section-title{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  margin-bottom:20px;
+}
+.section-title h2{
+  font-size:24px;
+  font-weight:700;
+  color:var(--text-base);
+}
+.section-title a{
+  font-size:12px;
+  font-weight:700;
+  color:var(--text-secondary);
+  text-decoration:none;
+  text-transform:uppercase;
+  letter-spacing:1.4px;
+}
+.section-title a:hover{color:var(--text-base)}
+/* ===== CARDS GRID ===== */
+.cards-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(180px,1fr));
+  gap:24px;
+}
+.card{
+  background:var(--dark-surface);
+  border-radius:var(--radius-container);
+  padding:16px;
+  cursor:pointer;
+  transition:background 0.2s;
+  /* shadow only on hover/elevated */
+}
+.card:hover{
+  background:var(--mid-dark);
+  box-shadow:var(--shadow-medium);
+}
+.card-img{
+  width:100%;
+  aspect-ratio:1;
+  border-radius:4px;
+  background:linear-gradient(135deg,#333,#444);
+  margin-bottom:16px;
+  position:relative;
+  overflow:hidden;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+.card-img-icon{
+  width:48px;
+  height:48px;
+  border-radius:var(--radius-circle);
+  background:var(--mid-dark);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+.card-play-btn{
+  position:absolute;
+  right:8px;
+  bottom:8px;
+  width:48px;
+  height:48px;
+  border-radius:var(--radius-circle);
+  background:var(--spotify-green);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  opacity:0;
+  transform:translateY(8px);
+  transition:all 0.2s;
+  box-shadow:var(--shadow-heavy);
+}
+.card:hover .card-play-btn{
+  opacity:1;
+  transform:translateY(0);
+}
+.card-play-btn::after{
+  content:'';
+  width:0;
+  height:0;
+  border-left:14px solid var(--near-black);
+  border-top:9px solid transparent;
+  border-bottom:9px solid transparent;
+  margin-left:3px;
+}
+.card h3{
+  font-size:16px;
+  font-weight:700;
+  color:var(--text-base);
+  margin-bottom:4px;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+.card p{
+  font-size:14px;
+  font-weight:400;
+  color:var(--text-secondary);
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+.card-tag-row{
+  display:flex;
+  gap:8px;
+  margin-top:8px;
+}
+.card-tag{
+  padding:4px 12px;
+  border-radius:var(--radius-pill-sm);
+  background:var(--mid-dark);
+  color:var(--text-secondary);
+  font-size:12px;
+  font-weight:400;
+}
+/* ===== FOOTER ===== */
+footer{
+  margin-left:240px;
+  padding:48px 32px 32px;
+  border-top:1px solid var(--border-gray);
+}
+.footer-grid{
+  display:grid;
+  grid-template-columns:2fr 1fr 1fr 1fr;
+  gap:32px;
+  margin-bottom:40px;
+}
+.footer-brand{
+  font-size:24px;
+  font-weight:700;
+  color:var(--text-base);
+  margin-bottom:8px;
+}
+.footer-brand+p{
+  font-size:14px;
+  font-weight:400;
+  color:var(--text-secondary);
+  line-height:1.54;
+}
+.footer-col-title{
+  font-size:12px;
+  font-weight:700;
+  color:var(--text-base);
+  text-transform:uppercase;
+  letter-spacing:1.4px;
+  margin-bottom:12px;
+}
+.footer-col a{
+  display:block;
+  font-size:14px;
+  font-weight:400;
+  color:var(--text-secondary);
+  text-decoration:none;
+  margin-bottom:8px;
+}
+.footer-col a:hover{color:var(--text-base)}
+.footer-bottom{
+  font-size:12px;
+  font-weight:400;
+  color:var(--text-secondary);
+  padding-top:24px;
+  border-top:1px solid var(--border-gray);
+}
+/* ===== SWATCHES ===== */
+.swatches-section{
+  margin-left:240px;
+  padding:0 32px 80px;
+}
+.swatches-section h3{
+  font-size:18px;
+  font-weight:600;
+  color:var(--text-base);
+  margin-bottom:8px;
+}
+.swatches-section .swatch-subtitle{
+  font-size:14px;
+  color:var(--text-secondary);
+  margin-bottom:24px;
+}
+.swatches-section h4{
+  font-size:12px;
+  font-weight:700;
+  color:var(--text-secondary);
+  text-transform:uppercase;
+  letter-spacing:1.4px;
+  margin-bottom:12px;
+  margin-top:24px;
+}
+.swatches{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(160px,1fr));
+  gap:12px;
+}
+.swatch{
+  border-radius:4px;
+  overflow:hidden;
+}
+.swatch-color{height:52px}
+.swatch-label{
+  padding:10px 12px;
+  background:var(--dark-surface);
+}
+.swatch-label .name{
+  font-size:13px;
+  font-weight:700;
+  color:var(--text-base);
+}
+.swatch-label .hex{
+  font-size:11px;
+  font-weight:400;
+  color:var(--text-secondary);
+  font-family:monospace;
+  margin-top:2px;
+}
+/* ===== RESPONSIVE ===== */
+@media(max-width:1024px){
+  nav{width:200px}
+  main,footer,.swatches-section{margin-left:200px}
+}
+@media(max-width:896px){
+  nav{display:none}
+  main,footer,.swatches-section{margin-left:0}
+}
+@media(max-width:768px){
+  .cards-grid{grid-template-columns:repeat(2,1fr)}
+  .hero-banner{margin:8px 16px 24px;padding:32px 24px}
+  .footer-grid{grid-template-columns:1fr 1fr}
+  .section{padding:0 16px 24px}
+}
+@media(max-width:576px){
+  .cards-grid{grid-template-columns:1fr}
+  .header-nav-pills{overflow-x:auto;gap:6px}
+  .header-pill{white-space:nowrap;font-size:12px;padding:6px 12px}
+  .footer-grid{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<!-- SIDEBAR NAV -->
+<nav>
+  <div class="nav-logo">
+    <div class="nav-logo-dot"></div>
+    AI Daily
+  </div>
+  <ul class="nav-links">
+    <li><a href="#" class="active"><span class="nav-icon"></span> Home</a></li>
+    <li><a href="#"><span class="nav-icon"></span> Search</a></li>
+    <li><a href="#"><span class="nav-icon"></span> Your Library</a></li>
+  </ul>
+  <div class="nav-section-title">Browse</div>
+  <ul class="nav-links">
+    <li><a href="#"><span class="nav-icon"></span> Top Stories</a></li>
+    <li><a href="#"><span class="nav-icon"></span> Latest News</a></li>
+    <li><a href="#"><span class="nav-icon"></span> Research</a></li>
+    <li><a href="#"><span class="nav-icon"></span> Podcasts</a></li>
+  </ul>
+</nav>
+
+<main>
+  <!-- HEADER BAR -->
+  <div class="header-bar">
+    <div class="header-nav-pills">
+      <button class="header-pill active">All</button>
+      <button class="header-pill">LLMs</button>
+      <button class="header-pill">Robotics</button>
+      <button class="header-pill">Research</button>
+      <button class="header-pill">Policy</button>
+      <button class="header-pill">Startups</button>
+    </div>
+    <div class="header-user">
+      <div class="header-user-avatar"></div>
+    </div>
+  </div>
+
+  <!-- HERO BANNER -->
+  <div class="hero-banner">
+    <div class="hero-banner-content">
+      <span class="hero-badge">new</span>
+      <h1>AI Daily Trends</h1>
+      <p>Stay ahead with the most important stories in artificial intelligence, curated daily by our editorial team.</p>
+      <button class="header-pill active" style="font-size:14px;padding:10px 24px;">Follow</button>
+    </div>
+  </div>
+
+  <!-- NEWS CARDS SECTION -->
+  <section class="section">
+    <div class="section-title">
+      <h2>Top Stories</h2>
+      <a href="#">Show all</a>
+    </div>
+    <div class="cards-grid">
+      <!-- Card 1 -->
+      <div class="card">
+        <div class="card-img" style="background:linear-gradient(135deg,#1a3a5c,#0d2137)">
+          <div class="card-play-btn"></div>
+        </div>
+        <h3>OpenAI Releases GPT-5</h3>
+        <p>Next-gen model with 2M context window</p>
+        <div class="card-tag-row">
+          <span class="card-tag">LLM</span>
+          <span class="card-tag">OpenAI</span>
+        </div>
+      </div>
+      <!-- Card 2 -->
+      <div class="card">
+        <div class="card-img" style="background:linear-gradient(135deg,#1a2e4a,#14213d)">
+          <div class="card-play-btn"></div>
+        </div>
+        <h3>Google DeepMind Unveils Gemini</h3>
+        <p>State-of-the-art on major benchmarks</p>
+        <div class="card-tag-row">
+          <span class="card-tag">DeepMind</span>
+          <span class="card-tag">Research</span>
+        </div>
+      </div>
+      <!-- Card 3 -->
+      <div class="card">
+        <div class="card-img" style="background:linear-gradient(135deg,#2a1a3e,#1a0d2e)">
+          <div class="card-play-btn"></div>
+        </div>
+        <h3>Anthropic Claude Gets Web Search</h3>
+        <p>Source attribution closes key feature gap</p>
+        <div class="card-tag-row">
+          <span class="card-tag">Anthropic</span>
+          <span class="card-tag">Product</span>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div>
+      <div class="footer-brand">AI Daily</div>
+      <p>Curated artificial intelligence news and analysis. New stories every day.</p>
+    </div>
+    <div class="footer-col">
+      <div class="footer-col-title">Company</div>
+      <a href="#">About</a>
+      <a href="#">Careers</a>
+      <a href="#">Contact</a>
+    </div>
+    <div class="footer-col">
+      <div class="footer-col-title">Community</div>
+      <a href="#">Newsletter</a>
+      <a href="#">RSS Feed</a>
+      <a href="#">Discord</a>
+    </div>
+    <div class="footer-col">
+      <div class="footer-col-title">Legal</div>
+      <a href="#">Privacy</a>
+      <a href="#">Terms</a>
+      <a href="#">Cookies</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    &copy; 2026 AI Daily Trends. All rights reserved.
+  </div>
+</footer>
+
+<!-- SWATCHES -->
+<section class="swatches-section">
+  <h3>Color Palette — Spotify</h3>
+  <p class="swatch-subtitle">Dark immersive theme with green accent</p>
+
+  <h4>Primary Brand</h4>
+  <div class="swatches">
+    <div class="swatch"><div class="swatch-color" style="background:#1ed760"></div><div class="swatch-label"><div class="name">Spotify Green</div><div class="hex">#1ed760</div></div></div>
+    <div class="swatch"><div class="swatch-color" style="background:#121212"></div><div class="swatch-label"><div class="name">Near Black</div><div class="hex">#121212</div></div></div>
+    <div class="swatch"><div class="swatch-color" style="background:#181818"></div><div class="swatch-label"><div class="name">Dark Surface</div><div class="hex">#181818</div></div></div>
+    <div class="swatch"><div class="swatch-color" style="background:#1f1f1f"></div><div class="swatch-label"><div class="name">Mid Dark</div><div class="hex">#1f1f1f</div></div></div>
+    <div class="swatch"><div class="swatch-color" style="background:#252525"></div><div class="swatch-label"><div class="name">Dark Card</div><div class="hex">#252525</div></div></div>
+  </div>
+
+  <h4>Text</h4>
+  <div class="swatches">
+    <div class="swatch"><div class="swatch-color" style="background:#ffffff"></div><div class="swatch-label"><div class="name">White (base)</div><div class="hex">#ffffff</div></div></div>
+    <div class="swatch"><div class="swatch-color" style="background:#fdfdfd"></div><div class="swatch-label"><div class="name">Near White</div><div class="hex">#fdfdfd</div></div></div>
+    <div class="swatch"><div class="swatch-color" style="background:#cbcbcb"></div><div class="swatch-label"><div class="name">Bright Secondary</div><div class="hex">#cbcbcb</div></div></div>
+    <div class="swatch"><div class="swatch-color" style="background:#b3b3b3"></div><div class="swatch-label"><div class="name">Silver</div><div class="hex">#b3b3b3</div></div></div>
+  </div>
+
+  <h4>Semantic</h4>
+  <div class="swatches">
+    <div class="swatch"><div class="swatch-color" style="background:#f3727f"></div><div class="swatch-label"><div class="name">Negative Red</div><div class="hex">#f3727f</div></div></div>
+    <div class="swatch"><div class="swatch-color" style="background:#ffa42b"></div><div class="swatch-label"><div class="name">Warning Orange</div><div class="hex">#ffa42b</div></div></div>
+    <div class="swatch"><div class="swatch-color" style="background:#539df5"></div><div class="swatch-label"><div class="name">Announce Blue</div><div class="hex">#539df5</div></div></div>
+  </div>
+
+  <h4>Borders &amp; Shadows</h4>
+  <div class="swatches">
+    <div class="swatch"><div class="swatch-color" style="background:#4d4d4d"></div><div class="swatch-label"><div class="name">Border Gray</div><div class="hex">#4d4d4d</div></div></div>
+    <div class="swatch"><div class="swatch-color" style="background:#7c7c7c"></div><div class="swatch-label"><div class="name">Light Border</div><div class="hex">#7c7c7c</div></div></div>
+    <div class="swatch"><div class="swatch-color" style="background:#1db954"></div><div class="swatch-label"><div class="name">Green Border</div><div class="hex">#1db954</div></div></div>
+  </div>
+</section>
+
+</body>
+</html>

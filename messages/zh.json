@@ -1,0 +1,31 @@
+{
+  "metadata": {
+    "title": "AI 每日趋势",
+    "description": "每日 AI 热点新闻"
+  },
+  "header": {
+    "title": "AI 每日趋势",
+    "subtitle": "每日 AI 热点新闻"
+  },
+  "categories": {
+    "trending": "热门",
+    "launches": "发布",
+    "research": "研究",
+    "business": "商业"
+  },
+  "news": {
+    "readMore": "阅读全文",
+    "noSummary": "暂无摘要",
+    "noNews": "该分类暂无新闻。"
+  },
+  "footer": {
+    "sources": "来源：{count} 个 AI 资讯源",
+    "lastUpdated": "最后更新：{time}",
+    "demoMode": "演示模式 - 静态数据（抓取失败，自动降级）"
+  },
+  "loading": "加载中...",
+  "topThree": {
+    "heading": "Top 3 热门",
+    "refresh": "刷新"
+  }
+}

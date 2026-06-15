@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Daily Trends — Revolut Design</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* ===== RESET ===== */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+/* ===== DESIGN TOKENS ===== */
+:root{
+  --revolut-dark:#191c1f;
+  --pure-white:#ffffff;
+  --light-surface:#f4f4f4;
+  --revolut-blue:#494fdf;
+  --action-blue:#4f55f1;
+  --blue-text:#376cd5;
+  --danger-red:#e23b4a;
+  --deep-pink:#e61e49;
+  --warning-orange:#ec7e00;
+  --yellow:#b09000;
+  --teal:#00a87e;
+  --light-green:#428619;
+  --green-text:#006400;
+  --light-blue:#007bc2;
+  --brown:#936d62;
+  --red-text:#8b0000;
+  --mid-slate:#505a63;
+  --cool-gray:#8d969e;
+  --gray-tone:#c9c9cd;
+  --font-sans:'Inter',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+  --radius-card:20px;
+  --radius-standard:12px;
+  --radius-pill:9999px;
+}
+body{
+  font-family:var(--font-sans);
+  font-weight:400;
+  font-size:16px;
+  line-height:1.5;
+  color:var(--revolut-dark);
+  background:var(--pure-white);
+  -webkit-font-smoothing:antialiased;
+  letter-spacing:0.24px;
+}
+/* ===== NAV ===== */
+nav{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:24px 48px;
+  max-width:1280px;
+  margin:0 auto;
+}
+.nav-logo{
+  font-size:20px;
+  font-weight:500;
+  color:var(--revolut-dark);
+  letter-spacing:-0.2px;
+}
+.nav-links{
+  display:flex;
+  align-items:center;
+  gap:40px;
+  list-style:none;
+}
+.nav-links a{
+  text-decoration:none;
+  color:var(--revolut-dark);
+  font-size:20px;
+  font-weight:500;
+  line-height:1.4;
+  letter-spacing:normal;
+}
+.nav-links a:hover{color:var(--mid-slate)}
+.btn{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  padding:14px 32px;
+  border-radius:var(--radius-pill);
+  font-size:20px;
+  font-weight:500;
+  font-family:var(--font-sans);
+  line-height:1.4;
+  cursor:pointer;
+  text-decoration:none;
+  border:none;
+  letter-spacing:normal;
+  transition:opacity 0.15s;
+}
+.btn:hover{opacity:0.85}
+.btn-dark{
+  background:var(--revolut-dark);
+  color:var(--pure-white);
+}
+.btn-dark:focus{box-shadow:0 0 0 0.125rem var(--revolut-blue)}
+.btn-light{
+  background:var(--light-surface);
+  color:#000000;
+  padding:14px 34px;
+}
+.btn-outline{
+  background:transparent;
+  color:var(--revolut-dark);
+  border:2px solid var(--revolut-dark);
+}
+.btn-ghost{
+  background:rgba(244,244,244,0.1);
+  color:var(--light-surface);
+  border:2px solid var(--light-surface);
+}
+/* ===== HERO ===== */
+.hero{
+  padding:120px 48px 100px;
+  text-align:center;
+  background:var(--pure-white);
+}
+.hero-badge{
+  display:inline-block;
+  padding:6px 20px;
+  border-radius:var(--radius-pill);
+  background:var(--light-surface);
+  color:var(--revolut-dark);
+  font-size:14px;
+  font-weight:600;
+  letter-spacing:0.16px;
+  margin-bottom:32px;
+}
+.hero h1{
+  font-size:80px;
+  font-weight:500;
+  line-height:1.0;
+  color:var(--revolut-dark);
+  letter-spacing:-0.8px;
+  max-width:900px;
+  margin:0 auto 24px;
+}
+.hero p{
+  font-size:18px;
+  font-weight:400;
+  line-height:1.56;
+  color:var(--mid-slate);
+  letter-spacing:-0.09px;
+  max-width:600px;
+  margin:0 auto 40px;
+}
+.hero-actions{
+  display:flex;
+  gap:16px;
+  justify-content:center;
+  flex-wrap:wrap;
+}
+/* ===== SECTION ===== */
+.section{
+  max-width:1280px;
+  margin:0 auto;
+  padding:88px 48px;
+}
+.section-label{
+  font-size:14px;
+  font-weight:600;
+  color:var(--revolut-blue);
+  letter-spacing:0.16px;
+  text-transform:uppercase;
+  margin-bottom:16px;
+}
+.section h2{
+  font-size:48px;
+  font-weight:500;
+  line-height:1.21;
+  color:var(--revolut-dark);
+  letter-spacing:-0.48px;
+  margin-bottom:16px;
+}
+.section-subtitle{
+  font-size:16px;
+  color:var(--mid-slate);
+  letter-spacing:0.24px;
+  max-width:560px;
+  margin-bottom:48px;
+}
+/* ===== CATEGORY PILLS ===== */
+.category-pills{
+  display:flex;
+  gap:12px;
+  flex-wrap:wrap;
+  margin-bottom:48px;
+}
+.pill{
+  padding:10px 24px;
+  border-radius:var(--radius-pill);
+  font-size:16px;
+  font-weight:500;
+  line-height:1.5;
+  background:transparent;
+  color:var(--mid-slate);
+  border:2px solid transparent;
+  cursor:pointer;
+  font-family:var(--font-sans);
+  letter-spacing:0.16px;
+  transition:all 0.15s;
+}
+.pill.active{
+  background:var(--revolut-dark);
+  color:var(--pure-white);
+  border-color:var(--revolut-dark);
+}
+.pill:hover:not(.active){
+  border-color:var(--gray-tone);
+}
+/* ===== CARDS ===== */
+.cards-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(360px,1fr));
+  gap:24px;
+}
+.card{
+  background:var(--light-surface);
+  border-radius:var(--radius-card);
+  padding:32px;
+  display:flex;
+  flex-direction:column;
+  gap:16px;
+  transition:transform 0.15s;
+  /* ZERO shadow — Revolut is flat */
+}
+.card:hover{transform:translateY(-2px)}
+.card-icon{
+  width:48px;
+  height:48px;
+  border-radius:var(--radius-standard);
+  background:var(--revolut-dark);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:var(--pure-white);
+  font-size:20px;
+}
+.card-tag{
+  display:inline-block;
+  padding:4px 16px;
+  border-radius:var(--radius-pill);
+  background:var(--pure-white);
+  color:var(--revolut-dark);
+  font-size:12px;
+  font-weight:600;
+  letter-spacing:0.16px;
+  align-self:flex-start;
+}
+.card h3{
+  font-size:32px;
+  font-weight:500;
+  line-height:1.19;
+  color:var(--revolut-dark);
+  letter-spacing:-0.32px;
+}
+.card p{
+  font-size:16px;
+  font-weight:400;
+  line-height:1.5;
+  color:var(--mid-slate);
+  letter-spacing:0.24px;
+  flex:1;
+}
+.card-meta{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  font-size:14px;
+  color:var(--cool-gray);
+  letter-spacing:0.16px;
+}
+.card-link{
+  color:var(--revolut-dark);
+  text-decoration:none;
+  font-weight:700;
+  font-size:16px;
+  letter-spacing:0.24px;
+}
+.card-link:hover{color:var(--revolut-blue)}
+/* ===== DARK SECTION ===== */
+.dark-section{
+  background:var(--revolut-dark);
+  color:var(--pure-white);
+}
+.dark-section h2{color:var(--pure-white)}
+.dark-section .section-subtitle{color:var(--cool-gray)}
+/* ===== FOOTER ===== */
+footer{
+  background:var(--revolut-dark);
+  padding:64px 48px;
+  text-align:center;
+}
+footer p{
+  color:var(--cool-gray);
+  font-size:14px;
+  letter-spacing:0.16px;
+  margin-bottom:8px;
+  line-height:1.5;
+}
+footer a{
+  color:var(--light-surface);
+  text-decoration:none;
+}
+footer a:hover{color:var(--pure-white)}
+/* ===== SWATCHES ===== */
+.swatches-section{
+  max-width:1280px;
+  margin:0 auto;
+  padding:0 48px 80px;
+}
+.swatches-section h3{
+  font-size:24px;
+  font-weight:500;
+  margin-bottom:24px;
+  color:var(--revolut-dark);
+  letter-spacing:-0.32px;
+}
+.swatches-section h4{
+  font-size:14px;
+  font-weight:600;
+  color:var(--cool-gray);
+  text-transform:uppercase;
+  letter-spacing:0.16px;
+  margin-bottom:16px;
+  margin-top:32px;
+}
+.swatches{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(160px,1fr));
+  gap:16px;
+}
+.swatch{
+  border-radius:var(--radius-standard);
+  overflow:hidden;
+  border:1px solid var(--gray-tone);
+}
+.swatch-color{height:56px}
+.swatch-label{
+  padding:10px 14px;
+  background:var(--pure-white);
+}
+.swatch-label .name{
+  font-size:13px;
+  font-weight:600;
+  color:var(--revolut-dark);
+}
+.swatch-label .hex{
+  font-size:11px;
+  color:var(--cool-gray);
+  font-family:monospace;
+  margin-top:2px;
+}
+/* ===== RESPONSIVE ===== */
+@media(max-width:1024px){
+  .hero h1{font-size:48px;letter-spacing:-0.48px}
+  .nav-links{display:none}
+}
+@media(max-width:720px){
+  .hero h1{font-size:40px;letter-spacing:-0.4px}
+  .cards-grid{grid-template-columns:1fr}
+  .section h2{font-size:36px}
+  nav,.hero,.section{padding-left:24px;padding-right:24px}
+  .hero{padding-top:80px;padding-bottom:64px}
+  .hero-actions{flex-direction:column;align-items:center}
+  .swatches{grid-template-columns:repeat(2,1fr)}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">AI Daily</div>
+  <ul class="nav-links">
+    <li><a href="#">Products</a></li>
+    <li><a href="#">Pricing</a></li>
+    <li><a href="#">Company</a></li>
+    <li><a href="#">Help</a></li>
+  </ul>
+  <a href="#" class="btn btn-dark">Get Started</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-badge">&#9679; Now in 180+ countries</div>
+  <h1>AI Daily<br>Trends</h1>
+  <p>Real-time artificial intelligence news and analysis. Curated by machines, verified by humans — delivered to your feed every morning.</p>
+  <div class="hero-actions">
+    <a href="#" class="btn btn-dark">Start Reading Free</a>
+    <a href="#" class="btn btn-outline">See Plans</a>
+  </div>
+</section>
+
+<!-- CARDS SECTION -->
+<section class="section">
+  <div class="section-label">Top Stories</div>
+  <h2>What's happening today</h2>
+  <p class="section-subtitle">The most important AI developments, analyzed by our team of researchers and engineers.</p>
+  <div class="category-pills">
+    <button class="pill active">All News</button>
+    <button class="pill">Research</button>
+    <button class="pill">Products</button>
+    <button class="pill">Policy</button>
+    <button class="pill">Startups</button>
+    <button class="pill">Opinion</button>
+  </div>
+  <div class="cards-grid">
+    <!-- Card 1 -->
+    <div class="card">
+      <span class="card-tag">LLM</span>
+      <h3>OpenAI Releases GPT-5</h3>
+      <p>Next-generation model with improved reasoning, native multimodality, and a 2M token context window. Early benchmarks show 23% improvement on MMLU-Pro.</p>
+      <div class="card-meta">
+        <span>June 1, 2026 &middot; 4 min read</span>
+        <a href="#" class="card-link">Read &rarr;</a>
+      </div>
+    </div>
+    <!-- Card 2 -->
+    <div class="card">
+      <span class="card-tag">DeepMind</span>
+      <h3>Google DeepMind Unveils Gemini</h3>
+      <p>Gemini 3.0 achieves state-of-the-art results across all major benchmarks including MATH, HumanEval, and MMMU multimodal understanding.</p>
+      <div class="card-meta">
+        <span>May 31, 2026 &middot; 6 min read</span>
+        <a href="#" class="card-link">Read &rarr;</a>
+      </div>
+    </div>
+    <!-- Card 3 -->
+    <div class="card">
+      <span class="card-tag">Anthropic</span>
+      <h3>Anthropic Claude Gets Web Search</h3>
+      <p>Claude now includes built-in web search with real-time source attribution, closing a critical feature gap in the competitive AI assistant market.</p>
+      <div class="card-meta">
+        <span>May 30, 2026 &middot; 3 min read</span>
+        <a href="#" class="card-link">Read &rarr;</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>&copy; 2026 AI Daily Trends. All rights reserved.</p>
+  <p><a href="#">Privacy Policy</a> &middot; <a href="#">Terms of Service</a> &middot; <a href="#">Cookie Settings</a> &middot; <a href="#">Contact</a></p>
+</footer>
+
+<!-- SWATCHES -->
+<section class="swatches-section">
+  <h3>Color Palette — Revolut</h3>
+
+  <h4>Primary</h4>
+  <div class="swatches">
+    <div class="swatch"><div class="swatch-color" style="background:#191c1f"></div><div class="swatch-label"><div class="name">Revolut Dark</div><div class="hex">#191c1f</div></div></div>
+    <div class="swatch"><div class="swatch-color" style="background:#ffffff;border-bottom:1px solid #c9c9cd"></div><div class="swatch-label"><div class="name">Pure White</div><div class="hex">#ffffff</div></div></div>
+    <div class="swatch"><div class="swatch-color" style="background:#f4f4f4"></div><div class="swatch-label"><div class="name">Light Surface</div><div class="hex">#f4f4f4</div></div></div>
+  </div>
+
+  <h4>Brand / Interactive</h4>
+  <div class="swatches">
+    <div class="swatch"><div class="swatch-color" style="background:#494fdf"></div><div class="swatch-label"><div class="name">Revolut Blue</div><div class="hex">#494fdf</div></div></div>
+    <div class="swatch"><div class="swatch-color" style="background:#4f55f1"></div><div class="swatch-label"><div class="name">Action Blue</div><div class="hex">#4f55f1</div></div></div>
+    <div class="swatch"><div class="swatch-color" style="background:#376cd5"></div><div class="swatch-label"><div class="name">Blue Text</div><div class="hex">#376cd5</div></div></div>
+  </div>
+
+  <h4>Semantic</h4>
+  <div class="swatches">
+    <div class="swatch"><div class="swatch-color" style="background:#e23b4a"></div><div class="swatch-label"><div class="name">Danger Red</div><div class="hex">#e23b4a</div></div></div>
+    <div class="swatch"><div class="swatch-color" style="background:#e61e49"></div><div class="swatch-label"><div class="name">Deep Pink</div><div class="hex">#e61e49</div></div></div>
+    <div class="swatch"><div class="swatch-color" style="background:#ec7e00"></div><div class="swatch-label"><div class="name">Warning Orange</div><div class="hex">#ec7e00</div></div></div>
+    <div class="swatch"><div class="swatch-color" style="background:#00a87e"></div><div class="swatch-label"><div class="name">Teal</div><div class="hex">#00a87e</div></div></div>
+    <div class="swatch"><div class="swatch-color" style="background:#007bc2"></div><div class="swatch-label"><div class="name">Light Blue</div><div class="hex">#007bc2</div></div></div>
+    <div class="swatch"><div class="swatch-color" style="background:#b09000"></div><div class="swatch-label"><div class="name">Yellow</div><div class="hex">#b09000</div></div></div>
+  </div>
+
+  <h4>Neutral Text</h4>
+  <div class="swatches">
+    <div class="swatch"><div class="swatch-color" style="background:#505a63"></div><div class="swatch-label"><div class="name">Mid Slate</div><div class="hex">#505a63</div></div></div>
+    <div class="swatch"><div class="swatch-color" style="background:#8d969e"></div><div class="swatch-label"><div class="name">Cool Gray</div><div class="hex">#8d969e</div></div></div>
+    <div class="swatch"><div class="swatch-color" style="background:#c9c9cd"></div><div class="swatch-label"><div class="name">Gray Tone</div><div class="hex">#c9c9cd</div></div></div>
+  </div>
+</section>
+
+</body>
+</html>

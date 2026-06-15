@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Daily Trends — BMW Design</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap" rel="stylesheet">
+<style>
+:root {
+  --site-context-highlight-color: #1c69d4;
+  --site-context-focus-color: #0653b6;
+  --site-context-metainfo-color: #757575;
+  --site-context-theme-color: #ffffff;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'DM Sans', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  background: #ffffff;
+  color: #262626;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* --- Navigation --- */
+nav {
+  background: #0a0b0d; color: #ffffff;
+  display: flex; align-items: center; justify-content: center;
+  padding: 0 32px; height: 60px;
+}
+nav .nav-inner {
+  width: 100%; max-width: 1200px;
+  display: flex; align-items: center; justify-content: space-between;
+}
+nav .logo {
+  font-size: 24px; font-weight: 900; text-transform: uppercase; color: #ffffff;
+}
+nav .nav-links {
+  display: flex; gap: 40px; list-style: none;
+}
+nav .nav-links a {
+  font-size: 18px; font-weight: 900; line-height: 1.30;
+  color: #ffffff; text-decoration: none; text-transform: uppercase;
+}
+nav .nav-links a:hover { color: var(--site-context-highlight-color); }
+@media (max-width: 768px) {
+  nav .nav-links { display: none; }
+}
+
+/* --- Hero Section (dark) --- */
+.hero {
+  background: #0a0b0d; color: #ffffff;
+  text-align: center; padding: 100px 20px 90px;
+  position: relative; overflow: hidden;
+}
+.hero::before {
+  content: ''; position: absolute; inset: 0;
+  background: linear-gradient(135deg, rgba(28,105,212,0.08) 0%, transparent 60%);
+  pointer-events: none;
+}
+.hero h1 {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 3.75rem; font-weight: 300; line-height: 1.30;
+  text-transform: uppercase; color: #ffffff; position: relative;
+}
+.hero .subtitle {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 16px; font-weight: 400; line-height: 1.15;
+  color: #bbbbbb; margin-top: 16px; position: relative;
+}
+.hero .cta-row {
+  margin-top: 36px; display: flex; gap: 20px; justify-content: center; flex-wrap: wrap;
+  position: relative;
+}
+.btn-primary {
+  display: inline-block; padding: 12px 32px;
+  font-family: 'DM Sans', sans-serif; font-size: 16px; font-weight: 700;
+  line-height: 1.20; color: #ffffff; text-decoration: none;
+  border: 1px solid #ffffff; border-radius: 0;
+  background: transparent; cursor: pointer; text-transform: uppercase;
+}
+.btn-primary:hover { background: #ffffff; color: #0a0b0d; }
+.btn-primary:focus-visible { outline: 2px solid var(--site-context-focus-color); outline-offset: 2px; }
+.btn-outline {
+  display: inline-block; padding: 12px 32px;
+  font-family: 'DM Sans', sans-serif; font-size: 16px; font-weight: 400;
+  line-height: 1.20; color: #bbbbbb; text-decoration: none;
+  border: 0; border-radius: 0; background: transparent; cursor: pointer;
+}
+.btn-outline:hover { color: #ffffff; }
+
+/* --- Category Pills --- */
+.section-light {
+  background: #ffffff; padding: 56px 20px; text-align: center;
+}
+.section-light h2 {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 2.00rem; font-weight: 400; line-height: 1.30; color: #262626;
+  margin-bottom: 28px;
+}
+.pills-row {
+  display: flex; gap: 8px; justify-content: center; flex-wrap: wrap;
+  max-width: 1200px; margin: 0 auto;
+}
+.pill-filter {
+  padding: 8px 20px;
+  font-family: 'DM Sans', sans-serif; font-size: 14px; font-weight: 400;
+  color: #757575; background: transparent;
+  border: 1px solid #bbbbbb; border-radius: 0;
+  cursor: pointer; text-transform: uppercase;
+}
+.pill-filter:hover { color: #262626; border-color: #262626; }
+.pill-filter:focus-visible { outline: 2px solid var(--site-context-focus-color); outline-offset: 2px; }
+
+/* --- News Cards Grid --- */
+.section-dark {
+  background: #0a0b0d; padding: 70px 20px; text-align: center;
+}
+.section-dark h2 {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 2.00rem; font-weight: 400; line-height: 1.30;
+  color: #ffffff; margin-bottom: 36px;
+}
+.card-grid {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 24px; max-width: 1200px; margin: 0 auto;
+}
+.card {
+  background: #1a1a1a; color: #ffffff;
+  border: 1px solid #333333; border-radius: 0;
+  padding: 32px 28px; text-align: left;
+}
+.card .card-tag {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px; font-weight: 700; color: var(--site-context-highlight-color);
+  text-transform: uppercase; margin-bottom: 12px; letter-spacing: 1px;
+}
+.card h3 {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 1.75rem; font-weight: 400; line-height: 1.30; color: #ffffff;
+  margin-bottom: 12px;
+}
+.card p {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 16px; font-weight: 400; line-height: 1.15; color: #bbbbbb;
+  margin-bottom: 20px;
+}
+.card .card-link {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 16px; font-weight: 700; line-height: 1.20;
+  color: var(--site-context-highlight-color); text-decoration: none;
+  text-transform: uppercase;
+}
+.card .card-link:hover { color: #ffffff; }
+
+/* --- Footer --- */
+.section-footer {
+  background: #ffffff; padding: 48px 20px; text-align: center;
+  border-top: 1px solid #bbbbbb;
+}
+.section-footer .footer-text {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px; font-weight: 400; color: #757575;
+}
+
+/* --- Color Swatches --- */
+.swatches {
+  padding: 48px 20px; text-align: center; background: #f5f5f5;
+}
+.swatches h2 {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 1.75rem; font-weight: 400; line-height: 1.30; color: #262626;
+  margin-bottom: 24px;
+}
+.swatch-grid {
+  display: flex; gap: 12px; flex-wrap: wrap; justify-content: center;
+  max-width: 1200px; margin: 0 auto;
+}
+.swatch {
+  width: 70px; height: 70px; border-radius: 0;
+  display: flex; align-items: flex-end; justify-content: center;
+  padding-bottom: 6px;
+  font-family: 'DM Sans', sans-serif; font-size: 10px;
+}
+.swatch-label { margin-top: 4px; font-size: 11px; color: #757575; }
+
+/* Responsive */
+@media (max-width: 768px) {
+  .hero h1 { font-size: 2.50rem; }
+  .card-grid { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <div class="logo">AI Trends</div>
+    <ul class="nav-links">
+      <li><a href="#">Today</a></li>
+      <li><a href="#">Models</a></li>
+      <li><a href="#">Research</a></li>
+      <li><a href="#">Products</a></li>
+      <li><a href="#">Policy</a></li>
+    </ul>
+  </div>
+</nav>
+
+<section class="hero">
+  <h1>AI Daily Trends</h1>
+  <p class="subtitle">Precision reporting on the frontier of artificial intelligence.</p>
+  <div class="cta-row">
+    <a href="#" class="btn-primary">Subscribe Now</a>
+    <a href="#" class="btn-outline">Explore Stories</a>
+  </div>
+</section>
+
+<section class="section-light">
+  <h2>Explore Categories</h2>
+  <div class="pills-row">
+    <button class="pill-filter">Large Language Models</button>
+    <button class="pill-filter">Computer Vision</button>
+    <button class="pill-filter">Robotics</button>
+    <button class="pill-filter">AI Safety</button>
+    <button class="pill-filter">Open Source</button>
+    <button class="pill-filter">Enterprise AI</button>
+  </div>
+</section>
+
+<section class="section-dark">
+  <h2>Latest Stories</h2>
+  <div class="card-grid">
+    <div class="card">
+      <div class="card-tag">Models</div>
+      <h3>OpenAI Releases GPT-5</h3>
+      <p>Next-generation reasoning capabilities with multimodal understanding across text, images, and code.</p>
+      <a href="#" class="card-link">Read More &rarr;</a>
+    </div>
+    <div class="card">
+      <div class="card-tag">Research</div>
+      <h3>Google DeepMind Unveils Gemini</h3>
+      <p>A new era of unified AI that processes text, audio, video, and code natively.</p>
+      <a href="#" class="card-link">Read More &rarr;</a>
+    </div>
+    <div class="card">
+      <div class="card-tag">Products</div>
+      <h3>Anthropic Claude Gets Web Search</h3>
+      <p>Claude now browses the live web with inline citations for verifiable knowledge.</p>
+      <a href="#" class="card-link">Read More &rarr;</a>
+    </div>
+  </div>
+</section>
+
+<footer class="section-footer">
+  <p class="footer-text">Copyright &copy; 2026 AI Daily Trends. BMW CI2020 design language demo.</p>
+</footer>
+
+<section class="swatches">
+  <h2>Color Palette</h2>
+  <div class="swatch-grid">
+    <div>
+      <div class="swatch" style="background:#ffffff;color:#262626;border:1px solid #ccc;">#fff</div>
+      <div class="swatch-label">Pure White</div>
+    </div>
+    <div>
+      <div class="swatch" style="background:#262626;color:#ffffff;">#262626</div>
+      <div class="swatch-label">Near Black</div>
+    </div>
+    <div>
+      <div class="swatch" style="background:#1c69d4;color:#ffffff;">#1c69d4</div>
+      <div class="swatch-label">BMW Blue</div>
+    </div>
+    <div>
+      <div class="swatch" style="background:#0653b6;color:#ffffff;">#0653b6</div>
+      <div class="swatch-label">Focus Blue</div>
+    </div>
+    <div>
+      <div class="swatch" style="background:#757575;color:#ffffff;">#757575</div>
+      <div class="swatch-label">Meta Gray</div>
+    </div>
+    <div>
+      <div class="swatch" style="background:#bbbbbb;color:#262626;">#bbbbbb</div>
+      <div class="swatch-label">Silver</div>
+    </div>
+    <div>
+      <div class="swatch" style="background:#0a0b0d;color:#ffffff;">#0a0b0d</div>
+      <div class="swatch-label">Dark BG</div>
+    </div>
+  </div>
+</section>
+
+</body>
+</html>
