@@ -45,6 +45,56 @@ async function translateOne(text: string, to: string): Promise<string> {
 
 const langMap: Record<string, string> = { zh: "zh-Hans", ja: "ja" };
 
+/**
+ * Translate items synchronously (awaited) — for first-paint critical content.
+ * Uses concurrency=3 so cold start for 6 items takes ~1s instead of ~3s.
+ */
+export async function ensureTranslations(
+  items: { title: string; summary: string }[],
+  locale: string
+): Promise<void> {
+  if (locale === "en") return;
+  const to = langMap[locale];
+  if (!to) return;
+
+  const existing = loadCache(locale);
+  const titles = existing?.titles ?? {};
+  const summaries = existing?.summaries ?? {};
+
+  const needed = items.filter(
+    (item) =>
+      (item.title && !titles[item.title]) ||
+      (item.summary && !summaries[item.summary])
+  );
+
+  if (needed.length === 0) return;
+
+  console.log(`[translator] Ensuring ${needed.length} items → ${locale}`);
+
+  const CONCURRENCY = 3;
+  let count = 0;
+  const save = () =>
+    saveCache(locale, { titles, summaries, lastUpdated: new Date().toISOString() });
+
+  for (let i = 0; i < needed.length; i += CONCURRENCY) {
+    const batch = needed.slice(i, i + CONCURRENCY);
+    await Promise.all(
+      batch.map(async (item) => {
+        if (item.title && !titles[item.title]) {
+          titles[item.title] = await translateOne(item.title, to);
+        }
+        if (item.summary && !summaries[item.summary]) {
+          summaries[item.summary] = await translateOne(item.summary, to);
+        }
+      })
+    );
+    count += batch.length;
+    if (count % 12 === 0) save();
+  }
+  save();
+  console.log(`[translator] Done — ${count} items ensured for ${locale}`);
+}
+
 export async function translateInBackground(
   items: { title: string; summary: string }[],
   locale: string

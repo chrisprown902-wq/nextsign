@@ -19,7 +19,7 @@
     "noNews": "No news in this category."
   },
   "footer": {
-    "sources": "Sources: {count} AI feeds",
+    "sources": "Sources: {count} feeds",
     "lastUpdated": "Last updated: {time}",
     "fetchError": "Unable to load news — please check back later"
   },

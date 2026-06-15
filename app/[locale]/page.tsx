@@ -1,7 +1,7 @@
 import { fetchAllNews } from "@/lib/newsFetcher";
 import { calculateHeatScores } from "@/lib/heatScoreCalculator";
 import type { NewsItem } from "@/data/types";
-import { applyTranslations, translateInBackground } from "@/lib/translator";
+import { applyTranslations, ensureTranslations, translateInBackground } from "@/lib/translator";
 import HomeContent from "./HomeContent";
 import { routing } from "@/i18n/routing";
 import fs from "fs";
@@ -79,12 +79,20 @@ export default async function Home({ params }: Props) {
   const { locale } = params;
   const { data, lastUpdated, sourceCount } = await getNews();
 
-  // Apply cached translations (instant — no API call)
+  // Translate top 6 before first paint (hero + first 3 grid items)
+  // Cold start: ~1s with concurrency=3. Warm cache: instant skip.
+  const criticalCount = 6;
+  const criticalItems = data.slice(0, criticalCount);
+  await ensureTranslations(criticalItems, locale);
+
+  // Apply translations (now all critical items are guaranteed translated)
   const translated = applyTranslations(data, locale);
 
-  // Fire background translation — truly detached from the request lifecycle
-  const visibleItems = data.slice(0, 33);
-  setTimeout(() => translateInBackground(visibleItems, locale).catch(() => {}), 0);
+  // Background-fill the rest (items 7-33) — doesn't block the response
+  const bgItems = data.slice(criticalCount, 33);
+  if (bgItems.length > 0) {
+    setTimeout(() => translateInBackground(bgItems, locale).catch(() => {}), 0);
+  }
 
   const heroNews = translated.slice(0, 3);
   const otherNews = translated.slice(3);

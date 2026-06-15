@@ -19,7 +19,7 @@
     "noNews": "该分类暂无新闻。"
   },
   "footer": {
-    "sources": "来源：{count} 个 AI 资讯源",
+    "sources": "来源：{count} 个资讯源",
     "lastUpdated": "最后更新：{time}",
     "fetchError": "无法加载新闻，请稍后再试"
   },

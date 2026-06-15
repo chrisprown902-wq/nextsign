@@ -19,7 +19,7 @@
     "noNews": "このカテゴリにニュースはありません。"
   },
   "footer": {
-    "sources": "ソース：{count} 件のAIフィード",
+    "sources": "ソース：{count} 件のフィード",
     "lastUpdated": "最終更新：{time}",
     "fetchError": "ニュースを読み込めません。しばらくしてからお試しください"
   },
