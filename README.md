@@ -112,8 +112,6 @@ Score = Recency(60%) + Source Weight(40%)
 | Variable | Required | Default | Description |
 |----------|----------|---------|-------------|
 | `CACHE_TTL` | No | `3600` | Cache TTL in seconds |
-| `DEEPSEEK_API_KEY` | No | — | For AI summary generation |
-| `HUGGINGFACE_API_KEY` | No | — | For AI summary generation |
 
 ## Adding New Sources
 
