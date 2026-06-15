@@ -7,11 +7,11 @@ AI 行业新闻聚合站 — 多源抓取、智能评分、自动分类、多语
 ## 功能
 
 - **多源聚合** — 从 TechCrunch、OpenAI Blog、Google AI、MIT Tech Review、The Verge、Wired 六个 RSS 源抓取 AI 新闻
-- **热度评分** — 按时效性(40%)、来源权重(30%)、互动信号(30%) 加权排序
+- **热度评分** — 按时效性(60%)、来源权重(40%) 加权排序
 - **自动分类** — 将文章归入 launches（发布）、research（研究）、business（商业）、trending（趋势）四个类别
 - **国际化** — 支持 English / 中文 / 日本語，基于路由的语种切换（`next-intl`）
 - **缓存策略** — 1 小时 TTL 文件缓存，避免每次请求都拉 RSS
-- **优雅降级** — 所有源不可用时自动回退到内置 Demo 数据
+- **优雅降级** — 所有源不可用时展示明确错误状态，提示用户稍后重试
 - **自动翻译** — 后台 Bing Translate 管道翻译文章摘要
 
 ## 技术栈
@@ -69,7 +69,7 @@ npm start
 │   │   ├── CategoryNav.tsx
 │   │   ├── LocaleSwitcher.tsx
 │   │   └── AnimatedContainer.tsx
-│   ├── data/demoNews.ts    # 降级用 Demo 数据
+│   ├── data/types.ts       # 共享类型定义
 │   └── i18n/
 │       ├── request.ts
 │       └── routing.ts
@@ -95,18 +95,17 @@ npm start
 ## 热度评分算法
 
 ```
-分数 = 时效性(40%) + 来源权重(30%) + 互动分(30%)
+分数 = 时效性(60%) + 来源权重(40%)
 ```
 
 - **时效性**：24 小时内满分，每过 24 小时衰减 50%
 - **来源权重**：基于来源权威度预设分值
-- **互动分**：预留给未来真实互动数据
 
 ## 缓存策略
 
 - 抓取结果缓存至 `data/news-cache.json`
 - 1 小时内直接返回缓存，不走 RSS 请求
-- 所有源失败 → 自动降级到 `demoNews.ts` 静态数据
+- 所有源失败 → 返回错误状态，提示用户稍后重试
 
 ## 环境变量
 

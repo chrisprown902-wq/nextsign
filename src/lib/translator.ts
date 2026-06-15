@@ -37,7 +37,7 @@ async function translateOne(text: string, to: string): Promise<string> {
   try {
     const { translate } = await import("bing-translate-api");
     const r = await translate(text, null, to);
-    return r.translation;
+    return r?.translation ?? text;
   } catch {
     return text;
   }

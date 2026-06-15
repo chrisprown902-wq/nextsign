@@ -1,7 +1,6 @@
 import { fetchAllNews } from "@/lib/newsFetcher";
 import { calculateHeatScores } from "@/lib/heatScoreCalculator";
-import { demoNews } from "@/data/demoNews";
-import type { NewsItem } from "@/data/demoNews";
+import type { NewsItem } from "@/data/types";
 import { applyTranslations, translateInBackground } from "@/lib/translator";
 import HomeContent from "./HomeContent";
 import { routing } from "@/i18n/routing";
@@ -63,7 +62,9 @@ async function getNews(): Promise<{ data: NewsItem[]; lastUpdated: string | null
     console.error("Failed to fetch news:", e);
   }
 
-  return { data: demoNews, lastUpdated: null, sourceCount: 0 };
+  // All sources failed — return empty state, not demo data
+  console.error("All news sources failed to fetch");
+  return { data: [], lastUpdated: null, sourceCount: 0 };
 }
 
 type Props = {

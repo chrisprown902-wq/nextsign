@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { fetchAllNews } from "@/lib/newsFetcher";
 import { calculateHeatScores } from "@/lib/heatScoreCalculator";
-import type { NewsItem } from "@/data/demoNews";
+import type { NewsItem } from "@/data/types";
 import fs from "fs";
 import path from "path";
 

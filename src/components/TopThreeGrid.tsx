@@ -2,7 +2,7 @@
 
 import { useState, useCallback, useEffect } from "react";
 import { useTranslations } from "next-intl";
-import type { NewsItem } from "@/data/demoNews";
+import type { NewsItem } from "@/data/types";
 
 export default function TopThreeGrid({ initialNews }: { initialNews: NewsItem[] }) {
   const t = useTranslations("news");
@@ -28,8 +28,8 @@ export default function TopThreeGrid({ initialNews }: { initialNews: NewsItem[] 
           setNews(newTop3);
         }
       }
-    } catch {
-      // silent fail
+    } catch (err) {
+      console.error("Failed to refresh top stories:", err);
     } finally {
       setRefreshing(false);
     }

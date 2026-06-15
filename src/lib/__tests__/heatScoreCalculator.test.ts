@@ -1,4 +1,4 @@
-import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
+import { describe, it, expect } from "vitest";
 import { calculateHeatScores } from "../heatScoreCalculator";
 import type { RawArticle } from "../newsFetcher";
 
@@ -18,13 +18,6 @@ function makeArticle(overrides: Partial<RawArticle> = {}): RawArticle {
 }
 
 describe("calculateHeatScores", () => {
-  beforeEach(() => {
-    vi.spyOn(Math, "random").mockReturnValue(0.5);
-  });
-
-  afterEach(() => {
-    vi.restoreAllMocks();
-  });
 
   it("returns an array sorted by heatScore descending", () => {
     const articles = [

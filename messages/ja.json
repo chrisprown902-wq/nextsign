@@ -21,7 +21,7 @@
   "footer": {
     "sources": "ソース：{count} 件のAIフィード",
     "lastUpdated": "最終更新：{time}",
-    "demoMode": "デモモード - 静的データ（取得失敗、自動フォールバック）"
+    "fetchError": "ニュースを読み込めません。しばらくしてからお試しください"
   },
   "loading": "読み込み中...",
   "topThree": {

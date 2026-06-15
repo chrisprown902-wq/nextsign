@@ -7,11 +7,11 @@ AI industry news aggregator with smart scoring, auto-categorization, and multili
 ## Features
 
 - **Multi-source aggregation** — fetches AI news from TechCrunch, OpenAI Blog, Google AI, MIT Tech Review, The Verge, and Wired via RSS
-- **Heat score ranking** — ranks articles by recency (40%), source authority (30%), and engagement signals (30%)
+- **Heat score ranking** — ranks articles by recency (60%) and source authority (40%)
 - **Auto-categorization** — classifies articles into launches, research, business, and trending
 - **i18n** — English, 中文, 日本語 UI with route-based locale switching (`next-intl`)
 - **Caching** — 1-hour TTL file cache to avoid hitting RSS feeds on every request
-- **Graceful degradation** — built-in demo data when all sources are unavailable
+- **Graceful degradation** — clear error state when all sources are unavailable
 - **Auto-translation** — background Bing Translate pipeline for article summaries
 
 ## Tech Stack
@@ -69,7 +69,7 @@ npm start
 │   │   ├── CategoryNav.tsx
 │   │   ├── LocaleSwitcher.tsx
 │   │   └── AnimatedContainer.tsx
-│   ├── data/demoNews.ts    # Fallback demo data
+│   ├── data/types.ts        # Shared type definitions
 │   └── i18n/
 │       ├── request.ts
 │       └── routing.ts
@@ -95,18 +95,17 @@ npm start
 ## Heat Score Algorithm
 
 ```
-Score = Recency(40%) + Source Weight(30%) + Interaction(30%)
+Score = Recency(60%) + Source Weight(40%)
 ```
 
 - **Recency**: 100pts within 24h, halves every 24h after
 - **Source Weight**: preset authority scores per source
-- **Interaction**: placeholder for future real engagement data
 
 ## Caching Strategy
 
 - Results cached to `data/news-cache.json`
 - 1-hour TTL: serve cache, skip RSS fetch
-- All sources fail → fallback to `demoNews.ts` static data
+- All sources fail → error state with retry prompt
 
 ## Environment Variables
 

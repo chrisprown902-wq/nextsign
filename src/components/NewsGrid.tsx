@@ -1,6 +1,6 @@
 "use client";
 
-import { NewsItem } from "@/data/demoNews";
+import type { NewsItem } from "@/data/types";
 import NewsCard from "./NewsCard";
 import AnimatedContainer from "./AnimatedContainer";
 

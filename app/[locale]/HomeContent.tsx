@@ -3,7 +3,7 @@
 import { Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import { useTranslations } from "next-intl";
-import type { NewsItem } from "@/data/demoNews";
+import type { NewsItem } from "@/data/types";
 import CategoryNav from "@/components/CategoryNav";
 import TopThreeGrid from "@/components/TopThreeGrid";
 import NewsGrid from "@/components/NewsGrid";
@@ -89,7 +89,7 @@ function HomeContentInner({ heroNews, otherNews, lastUpdated, sourceCount, local
                 )}
               </p>
             ) : (
-              <p className="opacity-60">{t("footer.demoMode")}</p>
+              <p className="opacity-60">{t("footer.fetchError")}</p>
             )}
           </div>
         </div>

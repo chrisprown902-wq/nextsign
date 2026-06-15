@@ -21,7 +21,7 @@
   "footer": {
     "sources": "Sources: {count} AI feeds",
     "lastUpdated": "Last updated: {time}",
-    "demoMode": "Demo mode - static data (fetch failed, auto-downgraded)"
+    "fetchError": "Unable to load news — please check back later"
   },
   "loading": "Loading...",
   "topThree": {

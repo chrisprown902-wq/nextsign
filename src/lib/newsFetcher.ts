@@ -140,8 +140,8 @@ export async function fetchAllNews(): Promise<RawArticle[]> {
       return (feed.items || []).map((item) => {
         const summary = getSummary(item);
         return {
-          id: `${src.name}-${item.guid || item.link || Math.random().toString(36).slice(2)}`,
-          title: item.title || "无标题",
+          id: `${src.name}-${item.guid || item.link || crypto.randomUUID()}`,
+          title: item.title || "Untitled",
           source: src.name,
           summary,
           url: item.link || "",

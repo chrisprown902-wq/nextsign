@@ -1,7 +1,7 @@
 "use client";
 
 import { useTranslations } from "next-intl";
-import { NewsItem } from "@/data/demoNews";
+import type { NewsItem } from "@/data/types";
 
 export default function NewsCard({ news }: { news: NewsItem }) {
   const t = useTranslations("news");
