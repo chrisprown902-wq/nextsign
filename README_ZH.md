@@ -1,6 +1,6 @@
 [🇬🇧 English](README.md) | [🇨🇳 中文](README_ZH.md)
 
-# ai-news-site
+# NextSign
 
 AI 行业新闻聚合站 — 多源抓取、智能评分、自动分类、多语言。基于 Next.js 14 + React 18 + TypeScript。
 

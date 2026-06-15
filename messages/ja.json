@@ -1,11 +1,11 @@
 {
   "metadata": {
-    "title": "AI デイリートレンド",
-    "description": "AI最新ニュースを毎日配信"
+    "title": "NextSign",
+    "description": "注目のテックニュース"
   },
   "header": {
-    "title": "AI デイリートレンド",
-    "subtitle": "AI最新ニュースを毎日配信"
+    "title": "NextSign",
+    "subtitle": "注目のテックニュース"
   },
   "categories": {
     "trending": "トレンド",

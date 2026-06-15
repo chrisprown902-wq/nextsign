@@ -16,8 +16,8 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "AI Daily Trends",
-  description: "Daily AI Trending News",
+  title: "NextSign",
+  description: "Tech News That Matters",
 };
 
 export default function RootLayout({

@@ -1,4 +1,4 @@
-# ai-news-site 项目规则
+# NextSign 项目规则
 
 ## 复杂度棘轮（Complexity Ratchet）
 本项目启用 Garry Tan 式棘轮机制：代码质量只升不降。

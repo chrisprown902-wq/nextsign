@@ -1,6 +1,6 @@
 [🇬🇧 English](README.md) | [🇨🇳 中文](README_ZH.md)
 
-# ai-news-site
+# NextSign
 
 AI industry news aggregator with smart scoring, auto-categorization, and multilingual support. Built with Next.js 14, React 18, and TypeScript.
 
