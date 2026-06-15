@@ -107,29 +107,35 @@ export async function translateInBackground(
   const titles = existing?.titles ?? {};
   const summaries = existing?.summaries ?? {};
 
-  const newTitles = items.filter((n) => n.title && !titles[n.title]);
-  const newSummaries = items.filter((n) => n.summary && !summaries[n.summary]);
-
-  if (newTitles.length === 0 && newSummaries.length === 0) return;
-
-  console.log(`[translator] Translating ${newTitles.length} titles + ${newSummaries.length} summaries → ${locale}`);
-
-  // Save cache after each item so partial results survive restarts
-  const save = () => saveCache(locale, { titles, summaries, lastUpdated: new Date().toISOString() });
-
-  let count = 0;
-  for (const item of newTitles) {
-    titles[item.title] = await translateOne(item.title, to);
-    count++;
-    if (count % 5 === 0) save();
+  // Collect all uncached titles + summaries into a single work queue
+  const work: { key: "title" | "summary"; text: string }[] = [];
+  for (const item of items) {
+    if (item.title && !titles[item.title]) work.push({ key: "title", text: item.title });
+    if (item.summary && !summaries[item.summary]) work.push({ key: "summary", text: item.summary });
   }
-  for (const item of newSummaries) {
-    summaries[item.summary] = await translateOne(item.summary, to);
-    count++;
-    if (count % 5 === 0) save();
+
+  if (work.length === 0) return;
+
+  console.log(`[translator] Translating ${work.length} items → ${locale}`);
+
+  const save = () =>
+    saveCache(locale, { titles, summaries, lastUpdated: new Date().toISOString() });
+
+  // Batch with concurrency 3 for speed
+  const BATCH = 3;
+  for (let i = 0; i < work.length; i += BATCH) {
+    const chunk = work.slice(i, i + BATCH);
+    await Promise.all(
+      chunk.map(async (w) => {
+        const translated = await translateOne(w.text, to);
+        if (w.key === "title") titles[w.text] = translated;
+        else summaries[w.text] = translated;
+      })
+    );
+    if (i % 12 === 0) save();
   }
   save();
-  console.log(`[translator] Done — ${count} translations saved for ${locale}`);
+  console.log(`[translator] Done — ${work.length} items saved for ${locale}`);
 }
 
 export function applyTranslations<T extends { title: string; summary: string }>(

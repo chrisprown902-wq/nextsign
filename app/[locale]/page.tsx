@@ -12,6 +12,9 @@ export const dynamic = "force-dynamic";
 const CACHE_PATH = path.join(process.cwd(), "data", "news-cache.json");
 const CACHE_TTL_MS = 60 * 60 * 1000; // 1 hour
 
+const TOP_N = 33;
+const SUPPORTED_LOCALES = ["zh", "ja"] as const;
+
 interface CacheData {
   data: NewsItem[];
   lastUpdated: string;
@@ -37,11 +40,23 @@ function writeCache(data: CacheData) {
   }
 }
 
+/** Start background translation for all non-English locales */
+function kickOffTranslations(items: NewsItem[]) {
+  const top = items.slice(0, TOP_N);
+  for (const loc of SUPPORTED_LOCALES) {
+    translateInBackground(top, loc).catch((e) =>
+      console.error(`[translator] bg error for ${loc}:`, e)
+    );
+  }
+}
+
 async function getNews(): Promise<{ data: NewsItem[]; lastUpdated: string | null; sourceCount: number }> {
   const cache = readCache();
   if (cache) {
     const age = Date.now() - new Date(cache.lastUpdated).getTime();
     if (age < CACHE_TTL_MS) {
+      // Translations may not be ready yet for fresh cache — fire if needed
+      kickOffTranslations(cache.data);
       return { data: cache.data, lastUpdated: cache.lastUpdated, sourceCount: cache.sourceCount };
     }
   }
@@ -56,13 +71,16 @@ async function getNews(): Promise<{ data: NewsItem[]; lastUpdated: string | null
         sourceCount: new Set(raw.map((a) => a.source)).size,
       };
       writeCache(newCache);
+
+      // Translate at fetch time — articles ready in cache before any page render
+      kickOffTranslations(scored);
+
       return { data: scored, lastUpdated: newCache.lastUpdated, sourceCount: newCache.sourceCount };
     }
   } catch (e) {
     console.error("Failed to fetch news:", e);
   }
 
-  // All sources failed — return empty state, not demo data
   console.error("All news sources failed to fetch");
   return { data: [], lastUpdated: null, sourceCount: 0 };
 }
@@ -79,12 +97,8 @@ export default async function Home({ params }: Props) {
   const { locale } = params;
   const { data, lastUpdated, sourceCount } = await getNews();
 
-  // Apply cached translations (instant — reads from disk cache)
+  // Instant — reads from translation cache populated by kickOffTranslations
   const translated = applyTranslations(data, locale);
-
-  // Background-translate items not yet in cache (doesn't block response)
-  const topItems = data.slice(0, 33);
-  translateInBackground(topItems, locale).catch(() => {});
 
   const heroNews = translated.slice(0, 3);
   const otherNews = translated.slice(3);
